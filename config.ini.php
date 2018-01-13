@@ -18,7 +18,7 @@ host=138.128.175.66
 
 [offlinedb]
 driver=mysql
-banco=artcell
+banco=campanha
 usuario=root
 senha=
 host=127.0.0.1
@@ -27,6 +27,6 @@ host=127.0.0.1
 comandos=database
 comandos=url
 [index]
-dbstart=1
+dbstart=0
 **/
 ?>

@@ -31,14 +31,14 @@ primary key(id))engine=innodb charset=utf8;
 
 create table cidades (
 id int auto_increment,
-nomecidade varchar(45)
+nomecidade varchar(45),
 primary key(id))engine=innodb charset=utf8;
 
 create table bairros(
 id int auto_increment,
 nomebairro varchar(50),
 cidade int,
-foreign key(cidade) references cidades(id)
+foreign key(cidade) references cidades(id),
 primary key(id))engine=innodb charset=utf8;
 
 create table contato(
