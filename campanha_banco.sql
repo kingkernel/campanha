@@ -41,8 +41,16 @@ cidade int,
 foreign key(cidade) references cidades(id),
 primary key(id))engine=innodb charset=utf8;
 
+create table logradouro (
+id int auto_increment,
+nomelogradouro varchar(100),
+cep varchar(9),
+primary key(id),
+unique(cep)) engine=innodb charset=utf8;
+
 create table contato(
 id int auto_increment,
 nome varchar(50),
 cidade varchar(45),
-bairro varchar(50)) engine=innodb charset=utf8;
+bairro varchar(50),
+primary key(id)) engine=innodb charset=utf8;
