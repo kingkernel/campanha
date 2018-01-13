@@ -14,7 +14,15 @@ create table usuarios(
 id int auto_increment,
 email varchar(50),
 nome varchar(30),
-atributos varchar(1024),
-atributos JSON,
+licenca int,
+atributos varchar(1024), -- json com algumas informações da companhia
 primary key(id),
-unique(email))engine=innodb charset=utf8;
+unique(email),
+foreign key(licenca) references licencas(id),
+check(JSON_VALID(atributos))
+)engine=innodb charset=utf8;
+
+create table segmento(
+id int auto_increment,
+nomesegmento varchar(50),
+primary key(id))engine=innodb charset=utf8;
