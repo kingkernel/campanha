@@ -26,5 +26,23 @@ create table segmento(
 id int auto_increment,
 nomesegmento varchar(50),
 licenca int,
-tipo varchar(25),
+tipo varchar(25) default "particular",
 primary key(id))engine=innodb charset=utf8;
+
+create table cidades (
+id int auto_increment,
+nomecidade varchar(45)
+primary key(id))engine=innodb charset=utf8;
+
+create table bairros(
+id int auto_increment,
+nomebairro varchar(50),
+cidade int,
+foreign key(cidade) references cidades(id)
+primary key(id))engine=innodb charset=utf8;
+
+create table contato(
+id int auto_increment,
+nome varchar(50),
+cidade varchar(45),
+bairro varchar(50)) engine=innodb charset=utf8;
