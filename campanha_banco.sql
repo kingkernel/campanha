@@ -25,4 +25,6 @@ check(JSON_VALID(atributos))
 create table segmento(
 id int auto_increment,
 nomesegmento varchar(50),
+licenca int,
+tipo varchar(25),
 primary key(id))engine=innodb charset=utf8;
