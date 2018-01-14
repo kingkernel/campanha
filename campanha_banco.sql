@@ -8,7 +8,8 @@ nomelicenca varchar(150),
 contato varchar(150),
 licenca varchar(65),
 dataexpiracao date,
-primary key(id))engine=innodb charset=utf8;
+primary key(id),
+unique(licenca))engine=innodb charset=utf8;
 
 create table usuarios(
 id int auto_increment,
@@ -68,8 +69,17 @@ logradouro varchar(100),
 numero varchar(15),
 atributos varchar(1024),
 -- oculto
-licenca varchar(64),
+licenca varchar(65),
 primary key(id),
 check(JSON_VALID(atributos)),
 foreign key(licenca) references licencas(licenca)) engine=innodb charset=utf8;
+
+create table tarefas(
+id int auto_increment,
+nometarefa varchar(45),
+descricao text,
+creator int,
+datainicio date,
+datatermino date,
+primary key(id))engine=innodb charset=utf8;
 
