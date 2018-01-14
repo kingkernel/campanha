@@ -5,7 +5,7 @@ class index {
 		
 	}
 	public function index(){
-		echo "Ola mundo Marrento!!!";
+		include_once(PATHMODELO . get_class() ."_modelo/". get_class()."_modelo.php");
 	}
 }
 ?>

@@ -29,10 +29,19 @@ licenca int,
 tipo varchar(25) default "particular",
 primary key(id))engine=innodb charset=utf8;
 
+create table estados (
+id int auto_increment,
+nomeestado varchar(45),
+sigla varchar(2),
+primary key(id),
+unique(sigla))engine=innodb charset=utf8;
+
 create table cidades (
 id int auto_increment,
 nomecidade varchar(45),
-primary key(id))engine=innodb charset=utf8;
+sigla varchar(2),
+primary key(id),
+foreign key(sigla) references estados(sigla))engine=innodb charset=utf8;
 
 create table bairros(
 id int auto_increment,
@@ -46,6 +55,8 @@ id int auto_increment,
 nomelogradouro varchar(100),
 cep varchar(9),
 primary key(id),
+cidade int,
+bairro int,
 unique(cep)) engine=innodb charset=utf8;
 
 create table contato(
@@ -53,4 +64,9 @@ id int auto_increment,
 nome varchar(50),
 cidade varchar(45),
 bairro varchar(50),
+logradouro varchar(100),
+numero varchar(15),
+-- oculto
+licenca varchar(64),
 primary key(id)) engine=innodb charset=utf8;
+
