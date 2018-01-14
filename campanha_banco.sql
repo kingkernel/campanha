@@ -2,6 +2,13 @@ create database campanha character set=utf8;
 
 use campanha;
 
+create table logsistema(
+id int auto_increment,
+usuario int,
+acao varchar(text),
+dataacao datetime,
+primary key(id))engine=innodb charset=utf8;
+
 create table licencas (
 id int auto_increment,
 nomelicenca varchar(150),
@@ -81,5 +88,10 @@ descricao text,
 creator int,
 datainicio date,
 datatermino date,
-primary key(id))engine=innodb charset=utf8;
+porcentagem int(3),
+finalizada boolean,
+licenca varchar(64),
+primary key(id),
+foreign key (creator) references usuarios(id),
+foreign key (licenca) references licencas(licenca))engine=innodb charset=utf8;
 
