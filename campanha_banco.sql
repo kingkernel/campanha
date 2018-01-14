@@ -66,7 +66,10 @@ cidade varchar(45),
 bairro varchar(50),
 logradouro varchar(100),
 numero varchar(15),
+atributos varchar(1024),
 -- oculto
 licenca varchar(64),
-primary key(id)) engine=innodb charset=utf8;
+primary key(id),
+check(JSON_VALID(atributos)),
+foreign key(licenca) references licencas(licenca)) engine=innodb charset=utf8;
 
