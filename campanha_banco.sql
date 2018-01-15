@@ -5,11 +5,16 @@ use campanha;
 create table logsistema(
 id int auto_increment,
 usuario int,
-acao varchar(text),
+acao text,
 dataacao datetime,
 primary key(id))engine=innodb charset=utf8;
 
-create table administracao()engine=innodb charset=utf8;
+create table administracao(
+id int auto_increment,
+administradores varchar(50),
+snhpwd varchar(64),
+ativo boolean default 0,
+primary key(id))engine=innodb charset=utf8;
 
 create table licencas (
 id int auto_increment,
@@ -23,6 +28,8 @@ unique(licenca))engine=innodb charset=utf8;
 create table usuarios(
 id int auto_increment,
 email varchar(50),
+snhpwd varchar(64),
+ativo boolean,
 nome varchar(30),
 licenca int,
 atributos varchar(1024), -- json com algumas informações da companhia
@@ -31,6 +38,15 @@ unique(email),
 foreign key(licenca) references licencas(id),
 check(JSON_VALID(atributos))
 )engine=innodb charset=utf8;
+
+insert into usuarios (email, nome, snhpwd) values ("root", "Administrador", sha1(md5(sha1("1234"))));
+
+delimiter //
+	create procedure sp_login(arg_email varchar(50), arg_snhpwd varchar(64))
+	begin
+		select count(*) as existe from usuarios where email=arg_email and snhpwd=arg_snhpwd and ativo=1;
+	end //
+delimiter ;
 
 create table segmento(
 id int auto_increment,

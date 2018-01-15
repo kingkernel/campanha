@@ -1,4 +1,8 @@
 <?php
+/*
+data de criação: 2016
+Última Alteração: 14/01/2018
+*/
 class auth {
 	private $user;
 	private $password;
@@ -15,15 +19,14 @@ class auth {
 		$sql = "call sp_login(\"$this->user\", \"$this->password\")";
 		$dados = retornadbinfo($sql);
 		$linha = $dados->fetch(PDO::FETCH_ASSOC);
+		print_r($linha);
 		if ($linha["existe"] == 1){
 			$_SESSION["LOGADO"]=TRUE;
 			$_SESSION["usuario"] = $_POST["user"];
-			//$_SESSION["usuario"]->get_dadosuser();
 			header("Location: /");
 			echo "<script>document.reload();</script>";
 		} else {
 			echo "login desativado ou inexistente : ";
-			echo $this->password;
 		};
 	}
 	public function logout(){

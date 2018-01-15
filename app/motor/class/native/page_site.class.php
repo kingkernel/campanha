@@ -6,6 +6,10 @@ class page_site{
 	Ultima alteração: 11/01/2017
 	Autor: Daniel J. Santos
 	Email: Daniel.santos.ap@gmail.com
+
+###############################################################################
+	TEMPORARIAMENTE FINALIZADA
+###############################################################################
 	**/
 	public $language; 			// linguagem da pagina
 	public $titlepage;			// titulo da página
