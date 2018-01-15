@@ -9,6 +9,8 @@ acao varchar(text),
 dataacao datetime,
 primary key(id))engine=innodb charset=utf8;
 
+create table administracao()engine=innodb charset=utf8;
+
 create table licencas (
 id int auto_increment,
 nomelicenca varchar(150),
