@@ -5,7 +5,7 @@
   	Funções relacionados ao controlador geral do MVC
   	Criador: Daniel José dos Santos
  	Criação: 15/11/2017
- 	Últimas alterações: 19/11/2017
+ 	Últimas alterações: 14/01/2018
 ###################################################################################################
 **/
 //	inicializa a sessão para todo o site
@@ -18,7 +18,7 @@ define ("PATHCONTROLER", __DIR__ . "/app/controlador/");
 define ("PATHMODELO", __DIR__ . "/app/modelo/");
 define ("PATHVISAO", __DIR__ . "/app/visao/");
 define ("PATHMOTOR", __DIR__ . "/app/motor/");
-define ("PUBLICDIR", __DIR__. "/public/");
+define ("PUBLICDIR", "/public/");
 define ("FONTES", __DIR__. "/public/fonts/net/");
 define ("CLASSES", __DIR__. "/app/motor/class/");
 //	faz a leitura automática de classes. todas classes do sitema devem estar nessa pasta
