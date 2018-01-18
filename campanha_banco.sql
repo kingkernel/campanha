@@ -25,6 +25,10 @@ dataexpiracao date,
 primary key(id),
 unique(licenca))engine=innodb charset=utf8;
 
+delimiter //
+	
+delimiter ;
+
 create table usuarios(
 id int auto_increment,
 email varchar(50),
@@ -114,11 +118,11 @@ foreign key (creator) references usuarios(id),
 foreign key (licenca) references licencas(licenca))engine=innodb charset=utf8;
 
 create table eleitores(
-id intauto_increment,
-nomeeleitor varchar (50),
+id int auto_increment,
+nomeeleitor varchar(50),
 cidade varchar(45),
 bairro varchar(50),
-rua varchar(50)
+rua varchar(50),
 numero varchar(15),
 email varchar(50),
 fone1 varchar(15),
@@ -126,5 +130,14 @@ fone2 varchar(15),
 zap varchar(15),
 face varchar(50),
 licenca varchar(65),
-primary key(id)
+primary key(id),
 foreign key(licenca) references licencas(licenca))engine=innodb charset=utf8;
+
+-- procedure de adição de eleitores
+delimiter //
+	create procedure sp_add_eleitores( arg_nomeeleitor varchar (50), arg_cidade varchar(45), arg_bairro varchar(50), arg_rua varchar(50), arg_numero varchar(15), arg_email varchar(50), arg_fone1 varchar(15), arg_fone2 varchar(15), arg_zap varchar(15), arg_face varchar(50), arg_licenca varchar(65))
+		begin
+	insert into eleitores(nomeeleitor, cidade, bairro, rua, numero, email, fone1, fone2, zap, face, licenca) values (arg_nomeeleitor, arg_cidade, arg_bairro, arg_rua, arg_numero, arg_email, arg_fone1, arg_fone2, arg_zap, arg_face, arg_licenca);
+		end //
+delimiter ;
+

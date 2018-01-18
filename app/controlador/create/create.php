@@ -72,9 +72,10 @@ class create {
 				$face->inputIcon = "fa fa-facebook-official";
 				$face->inputName = "face";
 
+		$hidden1 = '<input type="hidden" name="licenca" value="">'; 
 		$submit = '<input type="submit" value="cadastrar" class="btn btn-primary pull-right" style="margin:10px">';
 
-		$pagina->bodycontent = $menuup->html().'<div class="container"><div class="row"><form action="/grava/eleitor" method="post"><fieldset ><legend>Eleitor</legend>'.$nome->html().$city->html().$bairro->html().$rua->html().$numero->html().'</fieldset><fieldset><legend>Contato</legend>'.$email->html().$fone1->html().$fone2->html().$zap->html().$face->html().$submit.'</fieldset></form></div></div>';
+		$pagina->bodycontent = $menuup->html().'<div class="container"><div class="row"><form action="/grava/eleitor" method="post"><fieldset ><legend>Eleitor</legend>'.$nome->html().$city->html().$bairro->html().$rua->html().$numero->html().'</fieldset><fieldset><legend>Contato</legend>'.$email->html().$fone1->html().$fone2->html().$zap->html().$face->html().$hidden1.$submit.'</fieldset></form></div></div>';
 		$pagina->headersinclude .= fontawesome(urlcss($_GET)); // .="<style>".$teste->addcss."</style>";
 		$pagina->render();
 	}
