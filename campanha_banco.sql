@@ -48,7 +48,8 @@ foreign key(licenca) references licencas(id) -- ,
 -- check(JSON_VALID(atributos))
 )engine=innodb charset=utf8;
 
-insert into usuarios (email, nome, snhpwd) values ("root", "Administrador", sha1(md5(sha1("1234"))));
+insert into usuarios (email, nome, snhpwd, licenca) values ("root", "Administrador", sha1(md5(sha1("1234"))), 1); 
+update usuarios set ativo=1;
 
 delimiter //
 	create procedure sp_login(arg_email varchar(50), arg_snhpwd varchar(64))
@@ -62,7 +63,8 @@ id int auto_increment,
 nomesegmento varchar(50),
 licenca int,
 tipo varchar(25) default "particular",
-primary key(id))engine=innodb charset=utf8;
+primary key(id),
+foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
 create table estados (
 id int auto_increment,
@@ -103,10 +105,10 @@ logradouro varchar(100),
 numero varchar(15),
 atributos varchar(1024),
 -- oculto
-licenca varchar(65),
+licenca int,
 primary key(id),
 -- check(JSON_VALID(atributos)),
-foreign key(licenca) references licencas(licenca)) engine=innodb charset=utf8;
+foreign key(licenca) references licencas(id)) engine=innodb charset=utf8;
 
 create table tarefas(
 id int auto_increment,
@@ -117,10 +119,10 @@ datainicio date,
 datatermino date,
 porcentagem int(3),
 finalizada boolean,
-licenca varchar(64),
+licenca int,
 primary key(id),
 foreign key (creator) references usuarios(id),
-foreign key (licenca) references licencas(licenca))engine=innodb charset=utf8;
+foreign key (licenca) references licencas(id))engine=innodb charset=utf8;
 
 create table eleitores(
 id int auto_increment,
@@ -134,9 +136,9 @@ fone1 varchar(15),
 fone2 varchar(15),
 zap varchar(15),
 face varchar(50),
-licenca varchar(65),
+licenca int,
 primary key(id),
-foreign key(licenca) references licencas(licenca))engine=innodb charset=utf8;
+foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
 -- procedure de adição de eleitores
 delimiter //
