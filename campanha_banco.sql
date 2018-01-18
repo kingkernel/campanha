@@ -26,8 +26,13 @@ primary key(id),
 unique(licenca))engine=innodb charset=utf8;
 
 delimiter //
-	
+	create procedure sp_add_licencas(arg_nomelicenca varchar(150), arg_contato varchar(150), arg_licenca varchar(65), arg_dataexpiracao date)
+		begin 
+			insert into licencas(nomelicenca, contato, licenca, dataexpiracao) values (arg_nomelicenca, arg_contato, arg_licenca, arg_dataexpiracao);
+		end //
 delimiter ;
+
+call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");
 
 create table usuarios(
 id int auto_increment,
