@@ -29,14 +29,14 @@ create table usuarios(
 id int auto_increment,
 email varchar(50),
 snhpwd varchar(64),
-ativo boolean,
+ativo boolean default 0,
 nome varchar(30),
 licenca int,
 atributos varchar(1024), -- json com algumas informações da companhia
 primary key(id),
 unique(email),
-foreign key(licenca) references licencas(id),
-check(JSON_VALID(atributos))
+foreign key(licenca) references licencas(id) -- ,
+-- check(JSON_VALID(atributos))
 )engine=innodb charset=utf8;
 
 insert into usuarios (email, nome, snhpwd) values ("root", "Administrador", sha1(md5(sha1("1234"))));
@@ -96,7 +96,7 @@ atributos varchar(1024),
 -- oculto
 licenca varchar(65),
 primary key(id),
-check(JSON_VALID(atributos)),
+-- check(JSON_VALID(atributos)),
 foreign key(licenca) references licencas(licenca)) engine=innodb charset=utf8;
 
 create table tarefas(
@@ -113,3 +113,14 @@ primary key(id),
 foreign key (creator) references usuarios(id),
 foreign key (licenca) references licencas(licenca))engine=innodb charset=utf8;
 
+create table eleitores(
+id intauto_increment,
+nomeeleitor varchar (50),
+cidade varchar(45),
+bairro varchar(50),
+rua varchar(50)
+numero varchar(15),
+email varchar(50),
+fone1 varchar(15),
+fone2 varchar ] => [zap] => [face] => )
+)engine=innodb charset=utf8;

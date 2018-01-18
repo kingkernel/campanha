@@ -19,7 +19,6 @@ class auth {
 		$sql = "call sp_login(\"$this->user\", \"$this->password\")";
 		$dados = retornadbinfo($sql);
 		$linha = $dados->fetch(PDO::FETCH_ASSOC);
-		print_r($linha);
 		if ($linha["existe"] == 1){
 			$_SESSION["LOGADO"]=TRUE;
 			$_SESSION["usuario"] = $_POST["user"];

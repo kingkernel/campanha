@@ -1,7 +1,7 @@
 <?php 
 /**
 Criação 15/11/2017
-Última Alteração: 15/11/2017
+Última Alteração: 17/01/2018
 Autor: Daniel J. Santos
 E-mail: daniel.santos.ap@gmail.com
 **/
@@ -12,6 +12,16 @@ encarregado de armazenar as informações de confuguração do banco de dados ta
 **/
 function urlcss($url){
 	if (!isset($url["urldigitada"])){$url["urldigitada"] = "";};$espacos = explode("/", $url["urldigitada"]);$total = count($espacos);$barras="";$x=2;while ($x <= $total){$barras .= "../";$x++;};return $barras;
+};
+function minimalheader($pastas){
+    /**
+    data criação 15/11/2017
+    **/
+    return '<link href="'.$pastas.'public/css/bootstrap.min.css" rel="stylesheet"><link href="'.$pastas.'public/css/bootstrap-theme.min.css" rel="stylesheet"><script src="'.$pastas.'public/js/jquery-1.11.1.min.js"></script><script src="'.$pastas.'public/js/bootstrap.min.js"></script><style type="text/css">.label,.glyphicon, .fa{ margin-right:5px; }</style>';
+};
+function compacta($template){
+    $compatada = preg_replace(array("/\n/", "/\s{2}/", "/\t/"), "", file_get_contents($template));
+    return $compatada;
 };
 /**
 ##########################################################################################################
@@ -94,18 +104,8 @@ function retornaqueryinfo($dados){
         };
     return $result;
 };
-function minimalheader($pastas){
-	/**
-	data criação 15/11/2017
-	**/
-	return '<link href="'.$pastas.'public/css/bootstrap.min.css" rel="stylesheet"><link href="'.$pastas.'public/css/bootstrap-theme.min.css" rel="stylesheet"><script src="'.$pastas.'jquery-1.11.1.min.js"></script><script src="'.$pastas.'public/js/bootstrap.min.js"></script><style type="text/css">.label,.glyphicon, .fa{ margin-right:5px; }</style>';
-};
 function fontawesome($pastas){
     return '<link rel="stylesheet" href="'.$pastas.'public/css/font-awesome/font-awesome.min.css">';
-};
-function compacta($template){
-    $compatada = preg_replace(array("/\n/", "/\s{2}/", "/\t/"), "", file_get_contents($template));
-    return $compatada;
 };
 class tag{
     /**
