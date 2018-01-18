@@ -122,5 +122,9 @@ rua varchar(50)
 numero varchar(15),
 email varchar(50),
 fone1 varchar(15),
-fone2 varchar ] => [zap] => [face] => )
-)engine=innodb charset=utf8;
+fone2 varchar(15),
+zap varchar(15),
+face varchar(50),
+licenca varchar(65),
+primary key(id)
+foreign key(licenca) references licencas(licenca))engine=innodb charset=utf8;
