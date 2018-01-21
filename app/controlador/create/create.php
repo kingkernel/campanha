@@ -82,7 +82,9 @@ class create {
 
 		//$jsGravaEleitor = '$.notify({message: \'Hello World\' },{ type: \'danger\', delay: 2500,animate: {enter: \'animated fadeInDown\', exit: \'animated fadeOutUp\'} });';
 		$jsGravaEleitor = '$("#cadEleitoBtn").click(function(){
-	$.notify({message: \'Gravado com sucesso!\' },{ type: \'success\', delay: 2500,animate: {enter: \'animated fadeInDown\', exit: \'animated fadeOutUp\'} });	 });';
+			alert("teste");
+	//$.notify({message: \'Gravado com sucesso!\' },{ type: \'success\', delay: 2500,animate: {enter: \'animated fadeInDown\', exit: \'animated fadeOutUp\'} });	 
+		});';
 
 		$pagina->bodycontent = $menuup->html().'<div class="container"><div class="row"><form action="/grava/eleitor" method="post" onsubmit="javascript: return false;"><fieldset ><legend>Eleitor</legend>'.$nome->html().$city->html().$bairro->html().$rua->html().$numero->html().'</fieldset><fieldset><legend>Contato</legend>'.$email->html().$fone1->html().$fone2->html().$zap->html().$face->html().$hidden1.$submit.'</fieldset></form></div></div><div id="ajax"></div><br/>';
 		$pagina->headersinclude .= fontawesome(urlcss($_GET)).$jsmaskurl.$animateCss.$jsNotify; // .="<style>".$teste->addcss."</style>";
