@@ -73,7 +73,7 @@ class create {
 				$face->inputName = "face";
 
 		$hidden1 = '<input type="hidden" name="licenca" value="'.$_SESSION["userinfo"]["idlicenca"].'">';
-		$submit = '<input type="submit" value="cadastrar" class="btn btn-primary pull-right" style="margin:10px" id="cadEleitoBtn">';
+		$submit = '<input type="submit" value="cadastrar" class="btn btn-primary pull-right" style="margin:10px" id="cadEleitorBtn">';
 
 		$jsmask = '$("#id_'.$fone1->inputName.'").mask(\'(99) 99999-9999\');$("#id_'.$fone2->inputName.'").mask(\'(99) 99999-9999\');$("#id_'.$zap->inputName.'").mask(\'(99) 99999-9999\');';
 		$jsmaskurl = '<script src="'.urlcss($_GET).'public/js/jquery.mask.js"></script>';
@@ -81,8 +81,9 @@ class create {
 		$animateCss = '<link src="'.urlcss($_GET).'public/css/animate.min.css" rel="stylesheet">';
 
 		//$jsGravaEleitor = '$.notify({message: \'Hello World\' },{ type: \'danger\', delay: 2500,animate: {enter: \'animated fadeInDown\', exit: \'animated fadeOutUp\'} });';
-		$jsGravaEleitor = '$("#cadEleitoBtn").click(function(){
-			alert("teste");
+		$jsGravaEleitor = '$("#cadEleitorBtn").click(function(){
+			var nome = $("#id_'.$nome->inputName.'").$val();
+			alert(nome);
 	//$.notify({message: \'Gravado com sucesso!\' },{ type: \'success\', delay: 2500,animate: {enter: \'animated fadeInDown\', exit: \'animated fadeOutUp\'} });	 
 		});';
 
