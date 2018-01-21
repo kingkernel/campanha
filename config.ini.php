@@ -9,12 +9,20 @@
 [interface]
 framework = bootstrap
 
-[banco_de_dados]
+[banco_de_dadosXX]
 driver=mysql
 banco=kingkernel_fabiano
 usuario=kingkernel_sistemas
 senha=claudi963099
 host=107.161.183.163
+
+[banco_de_dados]
+driver=mysql
+banco=campanha
+usuario=root
+senha=
+host=127.0.0.1
+
 
 [offlinedb]
 driver=mysql

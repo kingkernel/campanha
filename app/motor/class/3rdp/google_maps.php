@@ -28,6 +28,7 @@ Métodos:
  	public $zoom;						// int
  	public $position = [];			// array
  	public $points = [];			// array
+ 	public $addcss = "html, body {height: 95%; margin: 0;padding: 0;}";
 
 
  	public function __construct($key){

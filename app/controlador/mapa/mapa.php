@@ -4,6 +4,61 @@ class mapa {
 
 	}
 	public function index(){
+		$nav = $nav = new topmenu_campanha;
+		$pagina = new page_site;
+
+		$mp = new googleMaps;
+		$mp->zoom = "4";
+		$mp->userKey = "AIzaSyDzkJ0uCXjHF8KLentBR7aFWOzzsMxRa9Y";
+
+		$ponto1 = new googleMarker;
+		$ponto2 = new googleMarker;
+			$ponto2->latitude = "0.9019925";
+			$ponto2->longitude = "-52.0029565";
+			$ponto2->setMap = $mp->mapName;
+			$ponto2->icon = "/public/images/syspng/android.png";
+
+		$ponto3 = new googleMarker;
+			$ponto3->latitude = "-1.4557794";
+			$ponto3->longitude = "-48.4901968";
+			$ponto3->setMap = $mp->mapName;
+			$ponto3->icon = "/public/images/syspng/android.png";
+		$endereco = array('av coaraci numes', "922", "centro", "macapa");
+
+		//$ponto3->userKey = $mp->userKey;
+		//echo $ponto3->mountAdress($endereco);
+
+		$mp->points = [$ponto1, $ponto2, $ponto3];
+		
+		$geo = '<p>Clique no botão para ver suas coordenadas.</p><button onclick="getLocation()">Esse aqui</button><div id="demo"></div><script>
+		var x = document.getElementById("demo");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;  
+}</script>';
+		$pagina->bodycontent = $nav->html().$mp->render().$geo; //."<div id=\"map\"></div>". $divmapa;
+
+		/*
+		var x = document.getElementById("demo");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;  
+}
+
 		include(PATHMOTOR."class/3rdp/google_maps.php");
 		$mapa = new googlemaps("AIzaSyDzkJ0uCXjHF8KLentBR7aFWOzzsMxRa9Y");
 
@@ -43,13 +98,12 @@ class mapa {
 		$mapa->position["lng"] = $ponto->position["lng"];
 		$mapa->points = [$ponto];
 
-		$pagina = new page_site;
 
 		$js =  '<script>function initMap() {var map = new google.maps.Map(document.getElementById(\'map\'), {center: {lat: -34.397, lng: 150.644},zoom: 8});}</script><script src="https://maps.googleapis.com/maps/api/js?sensor=false></script>';
-		$pagina->bodycontent = "<div id=\"map\"></div>" . $divmapa;
-		$pagina->scriptsendpagev = '<script src="js/jquery.min.js"></script>'. $js;
+		*/
+		//$pagina->scriptsendpagev = '<script src="js/jquery.min.js"></script>'. $js;
 		$pagina->render();
-		$mapa->mountjs();
+		//$mapa->mountjs();
 
 	}
 }

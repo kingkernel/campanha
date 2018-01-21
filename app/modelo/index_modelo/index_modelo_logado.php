@@ -1,5 +1,6 @@
 <?php
 $menuup = new topmenu_campanha;
+
 $pagina = new page_site;
 	$card = new cardflip;
 	$card->imgavatar =  PUBLICDIR ."images/avatar.jpg";
