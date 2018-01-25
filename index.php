@@ -76,11 +76,15 @@ if (in_array($parametros[0], $buscapath) == true){
 				} else {
 					//caso contrario, exit
 					echo "Argumento invalido : <b>" . $parametros[1]."</b>";
+					header("Location: /");
+					echo "<script>document.reload();</script>";
 					exit;
 				};	
 		};
 		// caso o que foi digitado na url não existir, exiba a mensagem
 	} else {
 		echo "Módulo inexistente, ou inativado!";
+			header("Location: /");
+			echo "<script>document.reload();</script>";
 		};
 ?>

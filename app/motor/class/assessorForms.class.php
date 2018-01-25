@@ -7,11 +7,10 @@ class assessorForms {
 	}
 	public function cadastroIn(){
 		// campos do formulário
-		
 			$nome = new inputAddOn;
-				$nome->inputPlaceholder = "Nome do Eleitor";
+				$nome->inputPlaceholder = "Nome do assessor";
 				$nome->inputIcon = "glyphicon glyphicon-user";
-				$nome->inputName = "eleitor";
+				$nome->inputName = "acessor";
 
 			$city = new inputAddOn;
 				$city->inputPlaceholder = "Cidade";

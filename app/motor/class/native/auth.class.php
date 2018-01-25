@@ -22,9 +22,9 @@ class auth {
 		if ($linha["existe"] == 1){
 			$_SESSION["LOGADO"]=TRUE;
 			$_SESSION["usuario"] = $_POST["user"];
-			$logedUser = new authuser_campanha;
-				$logedUser->usuario = $_SESSION["usuario"];
-				$logedUser->loguser();
+			//$logedUser = new authuser_campanha;
+			//	$logedUser->usuario = $_SESSION["usuario"];
+			//	$logedUser->loguser();
 			header("Location: /");
 			echo "<script>document.reload();</script>";
 		} else {

@@ -34,8 +34,9 @@ delimiter ;
 
 call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");
 call sp_add_licencas("Licença 2", "testes", sha1(md5(md5("teste2"))), "2018-01-30");
+call sp_add_licencas("Alexandre", "Alex", sha1(md5(md5("lele"))), "2018-01-30");
 
-create table usuarios(
+create table kusuarios(
 id int auto_increment,
 email varchar(50),
 snhpwd varchar(64),
@@ -56,23 +57,24 @@ cadastro boolean,
 relatorio boolean,
 mapa boolean,
 primary key(id),
-foreign key(usuario)references usuarios(id))engine=innodb charset=utf8;
+foreign key(usuario)references kusuarios(id))engine=innodb charset=utf8;
 
 delimiter //
-	create procedure sp_add_usuarios(arg_email varchar(50), arg_licenca int)
+	create procedure sp_add_kusuarios(arg_email varchar(50), arg_licenca int)
 		begin
-			insert into usuarios (email, snhpwd, licenca) values (arg_email, sha1(md5(sha1("1234"))), arg_licenca);
+			insert into kusuarios (email, snhpwd, licenca) values (arg_email, sha1(md5(sha1("1234"))), arg_licenca);
 		end //
 delimiter ;
 
-insert into usuarios (email, nome, snhpwd, licenca) values ("root", "Administrador", sha1(md5(sha1("1234"))), 1); 
-call sp_add_usuarios("teste", 2);
-update usuarios set ativo=1;
+insert into kusuarios (email, nome, snhpwd, licenca) values ("root", "Administrador", sha1(md5(sha1("1234"))), 1); 
+call sp_add_kusuarios("teste", 2);
+call sp_add_kusuarios("Alexandre", 3);
+update kusuarios set ativo=1;
 
 delimiter //
-	create procedure sp_login(arg_email varchar(50), arg_licenca int)
+	create procedure sp_login(arg_email varchar(50), arg_snhpwd varchar(64))
 	begin
-		select count(*) as existe from usuarios where email=arg_email and snhpwd=arg_snhpwd and ativo=1;
+		select count(*) as existe from kusuarios where email=arg_email and snhpwd=arg_snhpwd and ativo=1;
 	end //
 delimiter ;
 
@@ -139,8 +141,9 @@ porcentagem int(3),
 finalizada boolean,
 licenca int,
 primary key(id),
-foreign key (creator) references usuarios(id),
+foreign key (creator) references kusuarios(id),
 foreign key (licenca) references licencas(id))engine=innodb charset=utf8;
+
 
 create table eleitores(
 id int auto_increment,
@@ -150,17 +153,23 @@ bairro varchar(50),
 rua varchar(50),
 numero varchar(15),
 email varchar(50),
+acesso boolean,
+senha varchar(64),
 fone1 varchar(15),
 fone2 varchar(15),
 zap varchar(15),
 face varchar(50),
+cadfor int,
+tipoeleitor varchar(35);
+
+lideranca boolean,
 licenca int,
 primary key(id),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
 -- procedure de adição de eleitores
 delimiter //
-	create procedure sp_add_eleitores( arg_nomeeleitor varchar (50), arg_cidade varchar(45), arg_bairro varchar(50), arg_rua varchar(50), arg_numero varchar(15), arg_email varchar(50), arg_fone1 varchar(15), arg_fone2 varchar(15), arg_zap varchar(15), arg_face varchar(50), arg_licenca varchar(65))
+	create procedure sp_add_eleitores( arg_nomeeleitor varchar (50), arg_cidade varchar(45), arg_bairro varchar(50), arg_rua varchar(50), arg_numero varchar(15), arg_email varchar(50), arg_fone1 varchar(15), arg_fone2 varchar(15), arg_zap varchar(15), arg_face varchar(50), arg_licenca int)
 		begin
 	insert into eleitores(nomeeleitor, cidade, bairro, rua, numero, email, fone1, fone2, zap, face, licenca) values (arg_nomeeleitor, arg_cidade, arg_bairro, arg_rua, arg_numero, arg_email, arg_fone1, arg_fone2, arg_zap, arg_face, arg_licenca);
 		end //
@@ -169,16 +178,29 @@ delimiter ;
 delimiter //
 	create procedure sp_authuser(arg_usuario varchar(50))
 	begin
-		select usuarios.id, usuarios.email, usuarios.snhpwd, usuarios.nome, usuarios.licenca as idlicenca, licencas.licenca, licencas.nomelicenca, licencas.dataexpiracao, usuarios.ativo from campanha.usuarios usuarios inner join campanha.licencas licencas on (usuarios.licenca = licencas.id) where usuarios.email=arg_usuario;
-		set @iduser=(select usuarios.id from usuarios where usuarios.email=arg_usuario);
-		insert into logsistema (usuario, acao, dataacao) values (@iduser, "Logou-se no sistema", now());
+		select kusuarios.id, kusuarios.email, kusuarios.snhpwd, kusuarios.nome, kusuarios.licenca as idlicenca, licencas.licenca, licencas.nomelicenca, licencas.dataexpiracao, kusuarios.ativo from kusuarios kusuarios inner join licencas licencas on (kusuarios.licenca = licencas.id) where kusuarios.email=arg_usuario;
+		set @idusuario=(select id from kusuarios where kusuarios.email=arg_usuario);
+		insert into logsistema (usuario, acao, dataacao) values (@idusuario, "Logou-se no sistema", now());
 	end //
 delimiter ;
 
-delimiter //
-	create procedure sp_log()
-		begin
-		a
-		end //
-delimiter ;
+-- alterações do banco de dados da campanha eleitoral
+-- data alterações 22/01/2018
+-- alter table eleitores add column lideranca boolean default 0;
+create table atividade(
+id int auto_increment,
+nomeatividade varchar(60),
+descricao text,
+licenca int,
+primary key(id))engine=innodb charset=utf8; 
 
+create table projeto_eleitor(
+id int auto_increment,
+projeto int,
+eleitor int,
+primary key(id))engine=innodb charset=utf8;
+
+alter table eleitores add column tipoeleitor varchar(35);
+alter table eleitores add column senha varchar(64);
+alter table eleitores add column acesso boolean;
+alter table eleitores add column cadfor int;

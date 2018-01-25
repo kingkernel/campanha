@@ -24,7 +24,7 @@ senha=
 host=127.0.0.1
 
 
-[offlinedb]
+[offlinedb]-
 driver=mysql
 banco=campanha
 usuario=root

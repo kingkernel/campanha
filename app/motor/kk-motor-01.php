@@ -52,7 +52,7 @@ function fastquery_messages($sql, $mensagem1, $mensagem2){
     $pdo = new pdo($_SESSION["load"]["banco_de_dados"]["driver"] . ":dbname=". $_SESSION["load"]["banco_de_dados"]["banco"] . ";charset=UTF8;host=" . $_SESSION["load"]["banco_de_dados"]["host"] . ";" , $_SESSION["load"]["banco_de_dados"]["usuario"], $_SESSION["load"]["banco_de_dados"]["senha"]);
     //$pdo->prepare($sql);
     if (!$pdo->exec($sql)){
-        return $mensagem1 . print_r($pdo->errorInfo());
+        return $mensagem1;
 
     } else {
         return $mensagem2;
