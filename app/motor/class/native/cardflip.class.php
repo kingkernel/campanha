@@ -11,7 +11,7 @@ class cardflip{
 	public $addjsend = '$().ready(function(){$(\'[rel="tooltip"]\').tooltip();});function rotateCard(btn){var $card = $(btn).closest(\'.card-container\');console.log($card);if($card.hasClass(\'hover\')){$card.removeClass(\'hover\');}else{$card.addClass(\'hover\');}};';
 	public $imgfundo = 'http://www.playreplay.com.br/wp-content/uploads/ryu-cenario-playreplay-620x240.jpg';
 	public $imgavatar;
-	Public $nomeuser = "Daniels J.";
+	Public $nomeuser = "";
 	public $profissa = "Programador";
 	public $prefacio = "O difícil não é criar esse sistema, mas pessoas que acreditem nele...";
 	public $textcostas = "Trabalhamos duro para conseguir esse nível...";

@@ -45,8 +45,8 @@ function showPosition(position) {
 }</script>';
 		$pagina->bodycontent = $nav->html().$mp->render().$geo; //."<div id=\"map\"></div>". $divmapa;
 
-		/*
-		var x = document.getElementById("demo");
+		
+		'var x = document.getElementById("demo");
 function getLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition);
@@ -57,10 +57,10 @@ function getLocation() {
 function showPosition(position) {
     x.innerHTML = "Latitude: " + position.coords.latitude + 
     "<br>Longitude: " + position.coords.longitude;  
-}
+}';
 
-		include(PATHMOTOR."class/3rdp/google_maps.php");
-		$mapa = new googlemaps("AIzaSyDzkJ0uCXjHF8KLentBR7aFWOzzsMxRa9Y");
+	//	include(PATHMOTOR."class/3rdp/google_maps.php");
+	//	$mapa = new googlemaps("AIzaSyDzkJ0uCXjHF8KLentBR7aFWOzzsMxRa9Y");
 
 		$ponto = new mapspoint;
 
@@ -100,8 +100,8 @@ function showPosition(position) {
 
 
 		$js =  '<script>function initMap() {var map = new google.maps.Map(document.getElementById(\'map\'), {center: {lat: -34.397, lng: 150.644},zoom: 8});}</script><script src="https://maps.googleapis.com/maps/api/js?sensor=false></script>';
-		*/
-		//$pagina->scriptsendpagev = '<script src="js/jquery.min.js"></script>'. $js;
+		
+		$pagina->scriptsendpagev = '<script src="js/jquery.min.js"></script>'. $js;
 		$pagina->render();
 		//$mapa->mountjs();
 
