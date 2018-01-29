@@ -74,7 +74,7 @@ update usuarios set ativo=1;
 delimiter //
 	create procedure sp_login(arg_email varchar(50), arg_snhpwd varchar(64))
 	begin
-	select count(*) from usuarios where email=arg_email and snhpwd=arg_snhpwd and ativo=1;
+	select count(*) as xiste from usuarios where email=arg_email and snhpwd=arg_snhpwd and ativo=1;
 --		SELECT COUNT(*) as existe
 --		FROM eleitores
 --			INNER JOIN usuarios
