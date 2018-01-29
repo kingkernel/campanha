@@ -19,17 +19,31 @@ class auth {
 		$sql = "call sp_login(\"$this->user\", \"$this->password\")";
 		$dados = retornadbinfo($sql);
 		$linha = $dados->fetch(PDO::FETCH_ASSOC);
-		if ($linha["existe"] == 1){
-			$_SESSION["LOGADO"]=TRUE;
-			$_SESSION["usuario"] = $_POST["user"];
-			$logedUser = new authuser_campanha;
-				$logedUser->usuario = $_SESSION["usuario"];
-				$logedUser->loguser();
-			header("Location: /");
-			echo "<script>document.reload();</script>";
-		} else {
+		try {
+			if ($linha["existe"] == 1){
+				$_SESSION["LOGADO"]=TRUE;
+				$_SESSION["usuario"] = $_POST["user"];
+
+				$logedUser = new authuser_campanha;
+					$logedUser->usuario = $_SESSION["usuario"];
+					$logedUser->loguser();
+				header("Location: /");
+				echo "<script>document.reload();</script>";
+			} else {
+				$sql = "call sp_login_e(\"$this->user\", \"$this->password\")";
+				$dados = retornadbinfo($sql);
+				$linha = $dados->fetch(PDO::FETCH_ASSOC);
+				$logedUser = new authuser_campanha;
+					$logedUser->usuario = $_SESSION["usuario"];
+					$logedUser->loguser();
+				header("Location: /");
+				echo "<script>document.reload();</script>";
+			};
+		} catch (Exception $e) {
+			
 			echo "login desativado ou inexistente : ";
 		};
+		
 	}
 	public function logout(){
 		session_unset($_SESSION["LOGADO"]);

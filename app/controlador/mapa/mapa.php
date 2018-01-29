@@ -59,6 +59,7 @@ function showPosition(position) {
     "<br>Longitude: " + position.coords.longitude;  
 }';
 
+/*
 	//	include(PATHMOTOR."class/3rdp/google_maps.php");
 	//	$mapa = new googlemaps("AIzaSyDzkJ0uCXjHF8KLentBR7aFWOzzsMxRa9Y");
 
@@ -97,7 +98,7 @@ function showPosition(position) {
 		$mapa->position["lat"] = $ponto->position["lat"];
 		$mapa->position["lng"] = $ponto->position["lng"];
 		$mapa->points = [$ponto];
-
+*/
 
 		$js =  '<script>function initMap() {var map = new google.maps.Map(document.getElementById(\'map\'), {center: {lat: -34.397, lng: 150.644},zoom: 8});}</script><script src="https://maps.googleapis.com/maps/api/js?sensor=false></script>';
 		
