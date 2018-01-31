@@ -28,10 +28,10 @@ class topmenu_campanha {
 		$cadastro->text = "Cadastro";
 		$cadastro->iconclass = "glyphicon glyphicon-plus-sign";
 			$assessor = new li_item;
-			$assessor->text = "Assessor";
+			$assessor->text = "Lideres";
 			$assessor->link = "/create/assessor/";
 			$eleitor = new li_item;
-			$eleitor->text = "Eleitor";
+			$eleitor->text = "Simpatizantes";
 			$eleitor->link = "/create/eleitor/";
 			$tarefas = new li_item;
 			$tarefas->text = "Tarefas";

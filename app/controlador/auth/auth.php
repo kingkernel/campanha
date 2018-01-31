@@ -1,7 +1,7 @@
 <?php
 /*
 data de criação: 2016
-Última Alteração: 14/01/2018
+Última Alteração: 29/01/2018
 */
 class auth {
 	private $user;
@@ -19,10 +19,10 @@ class auth {
 		$sql = "call sp_login(\"$this->user\", \"$this->password\")";
 		$dados = retornadbinfo($sql);
 		$linha = $dados->fetch(PDO::FETCH_ASSOC);
-		try {
 			if ($linha["existe"] == 1){
 				$_SESSION["LOGADO"]=TRUE;
 				$_SESSION["usuario"] = $_POST["user"];
+				$_SESSION["table"] = "auth_u";
 
 				$logedUser = new authuser_campanha;
 					$logedUser->usuario = $_SESSION["usuario"];
@@ -33,17 +33,19 @@ class auth {
 				$sql = "call sp_login_e(\"$this->user\", \"$this->password\")";
 				$dados = retornadbinfo($sql);
 				$linha = $dados->fetch(PDO::FETCH_ASSOC);
-				$logedUser = new authuser_campanha;
-					$logedUser->usuario = $_SESSION["usuario"];
-					$logedUser->loguser();
-				header("Location: /");
-				echo "<script>document.reload();</script>";
-			};
-		} catch (Exception $e) {
-			
+						print_r($_SESSION);
+					if($linha["existe"] == "1"){
+					$_SESSION["LOGADO"]=TRUE;
+					$_SESSION["usuario"] = $_POST["user"];
+					$_SESSION["table"] = "auth_e";
+						$logedUser = new authuser_campanha;
+							$logedUser->usuario = $_SESSION["usuario"];
+							$logedUser->loguser();
+						header("Location: /");
+						echo "<script>document.reload();</script>";
+				};
 			echo "login desativado ou inexistente : ";
-		};
-		
+			};
 	}
 	public function logout(){
 		session_unset($_SESSION["LOGADO"]);
