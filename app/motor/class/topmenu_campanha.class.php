@@ -9,7 +9,7 @@ class topmenu_campanha {
 	}
 	public function html(){
 		$nav = new topnav;
-		$nav->brand = "Campanha";
+		$nav->brand = "Campanha  <span class=\"glyphicon glyphicon-repeat\"></span>";
 		$relatorio = new li_item;
 			$relatorio->text = "Relatórios";
 			$relatorio->link = "/report/";
@@ -21,7 +21,7 @@ class topmenu_campanha {
 			$mapa->link = "/mapa/";
 
 		$use_info = new li_user_info;
-		$use_info->nomedisplay = "usuario";
+		$use_info->nomedisplay = $_SESSION["userinfo"]["nome"];
 		$use_info->exitlink = "/auth/logout/";
 
 		$cadastro = new li_dropdown;
@@ -39,7 +39,8 @@ class topmenu_campanha {
 
 	$nav->itensleft = [$cadastro, $relatorio, $mapa];
 	$nav->itensright = [$use_info];
-	$this->nav = $nav->html();
+			$bottombar = new navbottom;
+	$this->nav = $nav->html().$bottombar->html();;
 	return $this->nav;
 	}
 }

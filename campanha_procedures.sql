@@ -50,6 +50,7 @@ delimiter //
 	end //
 delimiter ;
 
+-- RELATORIOS - CONSULTAS
 delimiter //
 	create procedure sp_autheleitor(arg_usuario varchar(50))
 		begin
@@ -58,6 +59,28 @@ delimiter //
 			insert into logsistema (usuario, acao, dataacao) values (@idusuario, "Logou-se no sistema", now());
 		end //
 delimiter ;
+
+delimiter //
+	create procedure sp_getresume(arg_licenca int)
+		begin
+			select count(*) as total from eleitores where licenca=arg_licenca;
+		end //
+delimiter ;
+
+delimiter //
+	create procedure sp_getbairros(arg_licenca int)
+		begin
+			select distinct(bairro) as bairros from eleitores where licenca=arg_licenca;
+		end //
+delimiter ;
+
+delimiter //
+	create procedure sp_getcidades(arg_licenca int)
+		begin
+			select distinct(cidade) as cidades from eleitores where licenca=arg_licenca;
+		end //
+delimiter ;
+
 
 call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");
 call sp_add_licencas("Licença 2", "testes", sha1(md5(md5("teste2"))), "2018-01-30");

@@ -159,3 +159,12 @@ alter table eleitores add column cadfor int;
 
 -- alterações do banco de dados da campanha eleitoral
 -- data alterações 22/01/2018
+
+create table mensagens(
+id bigint auto_increment,
+sender int,
+receiver int,
+messageopen boolean,
+
+)engine=innodb charset=utf8;
+create table tarefas()engine=innodb charset=utf8;

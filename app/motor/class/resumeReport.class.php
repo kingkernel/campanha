@@ -4,102 +4,63 @@ data criação: 31/01/2018
 */
 class resumeReport{
 	public $somacontent;
+	public $total;
+	public $cidades = [];
+	public $bairros = [];
+	public $reportItens = [];
 	public function __construct(){
 
 	}
+	public function getResume(){
+		$sql = 'call sp_getcidades('.$_SESSION["userinfo"]["idlicenca"].')';
+		$query = retornadbinfo($sql);
+		$data = $query->fetch(PDO::FETCH_ASSOC);
+		$this->cidades = $data["cidades"];
+
+		$sql = 'call sp_getbairros('.$_SESSION["userinfo"]["idlicenca"].')';
+		$query = retornadbinfo($sql);
+		$data = $query->fetch(PDO::FETCH_ASSOC);
+		$this->bairros = $data["bairros"];
+
+		$sql = 'call sp_getresume('.$_SESSION["userinfo"]["idlicenca"].')';
+		$query = retornadbinfo($sql);
+		$data = $query->fetch(PDO::FETCH_ASSOC);
+		$this->total = $data["total"];
+		return $this->total;
+	}
 	public function html(){
 	$this->somacontent = '<style>.glyphicon { margin-right:5px;}
-.rating .glyphicon {font-size: 22px;}
+.rating .glyphicon {font-size: 18px;}
 .rating-num { margin-top:0px;font-size: 45px; }
 .progress { margin-bottom: 5px;}
-.progress-bar { text-align: left; }
-.rating-desc .col-md-3 {padding-right: 0px;}
-.overbarprogress { margin-left: 5px;overflow: visible;clip: auto; }</style><div class="container">
-    <div class="row">
-        <div class="col-xs-12 col-md-6">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-xs-12 col-md-6 text-center">
-                        <h1 class="rating-num">
-                            Resumo</h1>
-                        <div class="rating">
-                            <span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
-                            </span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star">
-                            </span><span class="glyphicon glyphicon-star-empty"></span>
-                        </div>
-                        <div>
-                            <span class="glyphicon glyphicon-user"></span>1,050,008 total
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                        <div class="row rating-desc">
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>5
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress progress-striped">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-                                        <span class="overbarprogress">80%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 5 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>4
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-                                        <span class="overbarprogress">60%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 4 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>3
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="overbarprogress">40%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 3 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>2
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="20"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-                                        <span class="overbarprogress">20%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 2 -->
-                            <div class="col-xs-3 col-md-3 text-right">
-                                <span class="glyphicon glyphicon-star"></span>1
-                            </div>
-                            <div class="col-xs-8 col-md-9">
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: 15%">
-                                        <span class="overbarprogress">15%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end 1 -->
-                        </div>
-                        <!-- end row -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+.progress-bar { text-align: left;}
+/* .rating-desc .col-md-3 {padding-right: 0px;} */
+.overbarprogress {margin-left: 5px; overflow: visible;clip: auto;}</style>
+<div class="container" style="margin-left: 5px">
+	<div class="row">
+		<div class="col-md-4 col-sm-6">
+			<div class="well well-sm">
+				<div class="row">
+					<div class="text-center">
+						<h1 class="rating-num">Resumo</h1>
+						<div class="rating">
+							<span class="glyphicon glyphicon-user"></span>total : <span class="label label-warning">'.$this->total.'</span>
+						</div>
+						<div class="rating">
+							<a href="#"> SANTANA</a> <span class="glyphicon glyphicon-map-marker" style="color:#A12C2D"></span>
+						</div>
+							<!-- teste 2 -->';
+foreach ($this->reportItens as $key => $value) {
+	$this->somacontent .= $value->html();
+};
+
+$this->somacontent .= '<!-- fim teste 2 -->
+					</div>
+					<!-- teste -->
+				</div>
+			</div>
+		</div>
+	</div>
 </div>';
 return $this->somacontent;
 	}
