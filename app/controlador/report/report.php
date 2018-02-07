@@ -21,7 +21,7 @@ class report{
 				$item3->progressColor = "danger";
 		$resumo->reportItens = [$item1, $item2, $item3];
 		
-		$pagina->bodycontent = $menuup->html().$resumo->html();
+		$pagina->bodycontent = $menuup->html().$resumo->html()."<br/><br/><br/><br/><br/>";
 		$endjs = '$("#sharp").hover(function(){$(this).addClass("active")}, function(){$(this).removeClass("active")});';
 		$pagina->scriptsendpage = $endjs;
 		$pagina->render();

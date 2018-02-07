@@ -81,12 +81,26 @@ delimiter //
 		end //
 delimiter ;
 
+create view equipes as
+SELECT email as email, id as id, nome as nome, licenca as licenca FROM usuarios where ativo=1
+      union
+SELECT email as email, id as id, nomeeleitor as nome, licenca as licenca FROM eleitores where acesso=1;
+
+delimiter //
+	create procedure sp_selmessageto(arg_licenca int)
+		begin
+			select * from equipes where licenca=arg_licenca;
+		end //
+delimiter ;
+
 
 call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");
 call sp_add_licencas("Licença 2", "testes", sha1(md5(md5("teste2"))), "2018-01-30");
 call sp_add_licencas("Alexandre", "Alex", sha1(md5(md5("lele"))), "2018-01-30");
+call sp_add_licencas("Demostração do Sistema", "Demostração", sha1(md5(md5("demo"))), "2018-01-30");
 
 call sp_add_usuarios("root",1);
 call sp_add_usuarios("teste", 2);
 call sp_add_usuarios("Alexandre", 3);
+call sp_add_usuarios("demo", 4);
 update usuarios set ativo=1;

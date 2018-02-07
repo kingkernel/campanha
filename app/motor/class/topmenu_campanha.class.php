@@ -9,7 +9,7 @@ class topmenu_campanha {
 	}
 	public function html(){
 		$nav = new topnav;
-		$nav->brand = "Campanha  <span class=\"glyphicon glyphicon-repeat\"></span>";
+		$nav->brand = " Campanha ";
 		$relatorio = new li_item;
 			$relatorio->text = "Relatórios";
 			$relatorio->link = "/report/";
@@ -19,6 +19,22 @@ class topmenu_campanha {
 			$mapa->text = "Mapa" ;
 			$mapa->iconclass = "glyphicon glyphicon-globe";
 			$mapa->link = "/mapa/";
+
+		$message = new li_dropdown;
+			$message->text = "Mensagens" ;
+			$message->iconclass = "glyphicon glyphicon-envelope";
+			$message->link = "/messages/";
+				$msg = new li_item;
+				$msg->text = "Geral";
+				$msg->link = "/messages/";
+
+				$novamsg = new li_item;
+				$novamsg->text = "Nova Mensagem";
+				$novamsg->link = "/messages/neweditor/";
+			
+			$divider = new divider;
+
+			$message->subitem = [$msg, $divider, $novamsg];
 
 		$use_info = new li_user_info;
 		$use_info->nomedisplay = $_SESSION["userinfo"]["nome"];
@@ -35,11 +51,13 @@ class topmenu_campanha {
 			$eleitor->link = "/create/eleitor/";
 			$tarefas = new li_item;
 			$tarefas->text = "Tarefas";
+			$tarefas = new li_item;
+			$tarefas->text = "Tarefas";
 		$cadastro->subitem = [$assessor, $eleitor, $tarefas];
 
-	$nav->itensleft = [$cadastro, $relatorio, $mapa];
+	$nav->itensleft = [$cadastro, $relatorio, $mapa, $message];
 	$nav->itensright = [$use_info];
-			$bottombar = new navbottom;
+			$bottombar = new navBottom;
 	$this->nav = $nav->html().$bottombar->html();;
 	return $this->nav;
 	}

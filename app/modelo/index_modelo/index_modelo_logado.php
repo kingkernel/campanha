@@ -12,6 +12,6 @@ $pagina = new page_site;
 	$card->textorotacao = "Resumo de trabalho";
 $pagina->headersinclude .="<style>".$card->addcss."</style>";
 $pagina->scriptsendpage = $card->addjsend;
-	$pagina->bodycontent = $menuup->html().$card->html();
+	$pagina->bodycontent = $menuup->html().$card->html()."<br/><br/><br/><br/><br/>";
 $pagina->render();
 ?>

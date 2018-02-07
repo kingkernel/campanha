@@ -100,20 +100,6 @@ primary key(id),
 -- check(JSON_VALID(atributos)),
 foreign key(licenca) references licencas(id)) engine=innodb charset=utf8;
 
-create table tarefas(
-id int auto_increment,
-nometarefa varchar(45),
-descricao text,
-creator int,
-datainicio date,
-datatermino date,
-porcentagem int(3),
-finalizada boolean,
-licenca int,
-primary key(id),
-foreign key (creator) references usuarios(id),
-foreign key (licenca) references licencas(id))engine=innodb charset=utf8;
-
 create table eleitores(
 id int auto_increment,
 nomeeleitor varchar(50),
@@ -136,7 +122,7 @@ primary key(id),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
 
-alter table eleitores add column lideranca boolean default 0;
+-- alter table eleitores add column lideranca boolean default 0;
 create table atividade(
 id int auto_increment,
 nomeatividade varchar(60),
@@ -150,12 +136,12 @@ projeto int,
 eleitor int,
 primary key(id))engine=innodb charset=utf8;
 
-alter table eleitores add column tipoeleitor varchar(35);
-alter table eleitores add column senha varchar(64);
-alter table eleitores add column acesso boolean;
-alter table eleitores add column cadfor int;
+-- alter table eleitores add column tipoeleitor varchar(35);
+-- alter table eleitores add column senha varchar(64);
+-- alter table eleitores add column acesso boolean;
+-- alter table eleitores add column cadfor int;
 
-alter table eleitores add column cadfor int;
+-- alter table eleitores add column cadfor int;
 
 -- alterações do banco de dados da campanha eleitoral
 -- data alterações 22/01/2018
@@ -165,6 +151,23 @@ id bigint auto_increment,
 sender int,
 receiver int,
 messageopen boolean,
+messagetext text,
+messagedel boolean default 0,
+messagecontext varchar(30),
+primary key(id))engine=innodb charset=utf8;
 
-)engine=innodb charset=utf8;
-create table tarefas()engine=innodb charset=utf8;
+create table tarefas(
+id int auto_increment,
+nometarefa varchar(50),
+creator int,
+porcentagem int(3) default 0,
+inicio date,
+fim date,
+descricao text,
+concluida boolean default 0,
+primary key(id))engine=innodb charset=utf8;
+
+delimiter //
+	create procedure sp_add_messages()
+delimiter ;
+
