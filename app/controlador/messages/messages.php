@@ -14,6 +14,12 @@ class  messages {
 		$pagina->render();
 	}
 	public function neweditor(){
+		$pagina= new page_site;
+		$menuup = new topmenu_campanha;
+
+		$pagina->scriptsendpage ='CKEDITOR.replace(\'editor1\');';
+		$pagina->bodycontent = $menuup->html().'<div style="margin:20px"><textarea name="editor1" id="editor1"></textarea><script type="text/javascript" src="'.PUBLICDIR.'3ptn/ckeditor/ckeditor.js"></script></div>'."<br/><br/><br/><br/><br/>";
+		$pagina->render();
 		
 	}
 }
