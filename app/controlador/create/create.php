@@ -13,7 +13,7 @@ class create {
 
 		$form = new assessorForms;
 
-		$pagina->bodycontent = $menuup->html().'<div class="container"><div class="row"><fieldset ><legend>Acessores </legend><form id="formAssessor" action="/grava/assessor/" method="post" onsubmit="javascript: return false;">'.$form->cadastroIn()[0].'</fieldset></div></div><div id="ajax">';
+		$pagina->bodycontent = $menuup->html().'<div class="container"><div class="row"><fieldset ><legend>Lideranças </legend><form id="formAssessor" action="/grava/assessor/" method="post" onsubmit="javascript: return false;">'.$form->cadastroIn()[0].'</fieldset></div></div><div id="ajax">';
 
 		$jsmaskurl = '<script src="'.urlcss($_GET).'public/js/jquery.mask.js"></script>';
 		$jsNotify = '<script src="'.urlcss($_GET).'public/js/bootstrap-notify.min.js"></script>';

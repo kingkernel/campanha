@@ -47,14 +47,6 @@ $buscapath = scandir($pathmotor);
 	então inclua neste index seu conteudo.
 ###################################################################################################
  **/
-	if(isset($_SESSION["load"]["index"]["dbstart"]) == true){
-			    $db = new dbconnect();
-			    $db->connect();
-			    //return $db->db;
-			    $GLOBALS["DB"] = $db->db;
-		} else {
-	};
-
 if (in_array($parametros[0], $buscapath) == true){
 	//	caso exista inclue seu conteudo sera incluí­do
 	include_once($pathmotor . $parametros[0] . "/" . $parametros[0] . ".php");
@@ -83,8 +75,9 @@ if (in_array($parametros[0], $buscapath) == true){
 		};
 		// caso o que foi digitado na url não existir, exiba a mensagem
 	} else {
-		echo "Módulo inexistente, ou inativado!";
-			header("Location: /");
-			echo "<script>document.reload();</script>";
+		$error = "E"."404";
+			include("pagesError.php");
+			$page = new pagesError;
+			$page->$error();
 		};
 ?>
