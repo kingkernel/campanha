@@ -18,9 +18,14 @@ class  messages {
 		$menuup = new topmenu_campanha;
 
 		$pagina->scriptsendpage ='CKEDITOR.replace(\'editor1\');';
-		$pagina->bodycontent = $menuup->html().'<div style="margin:20px"><textarea name="editor1" id="editor1"></textarea><script type="text/javascript" src="'.PUBLICDIR.'3ptn/ckeditor/ckeditor.js"></script></div><div name="controls" style="margin:20px"><button class="btn btn-primary">Enviar</button></div>'."<br/><br/><br/><br/><br/>";
+		$pagina->bodycontent = $menuup->html().'<legend style="padding:20px">Mensagens</legend><select style="margin-left: 20px"><option>nome pessoa</option><option>nome 2 pessoa</option></select><div style="margin:20px"><form action="post/" method="POST"><textarea name="editor1" id="editor1"></textarea><script type="text/javascript" src="'.PUBLICDIR.'3ptn/ckeditor/ckeditor.js"></script></div><div name="controls" style="margin:20px"><button id="msgbtn" class="btn btn-primary">Enviar</button></form></div>'."<br/><br/><br/><br/><br/><div id=\"result\"></div>";
+		$js = '$("#msgbtn").click(function(){ var content = $("#editor1").val(); alert(content + "ola");});';
+		$pagina->scriptsendpage .= $js;
 		$pagina->render();
 		
+	}
+	public function post(){
+		print_r($_POST);
 	}
 }
 ?>

@@ -33,6 +33,14 @@ dataexpiracao date,
 primary key(id),
 unique(licenca))engine=innodb charset=utf8;
 
+create table licenca_config(
+id int auto_increment,
+licenca int,
+campanha varchar(50),
+tipo enum("municipal", "estadual"),
+primary key(id),
+foreign key(licenca) references licencas(id))engine=innodb charset=utf8; 
+
 create table usuarios(
 id int auto_increment,
 email varchar(50),
