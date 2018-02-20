@@ -16,6 +16,14 @@ snhpwd varchar(64),
 ativo boolean default 0,
 primary key(id))engine=innodb charset=utf8;
 
+create table current_system(
+nomesistema varchar(50) primary key,
+versao double(4,2),
+emailcriador varchar(50))engine=innodb charset=utf8;
+
+insert into current_system (nomesistema, versao, emailcriador) values
+("Agenda Anubis", "1.0", "daniel.santos.ap@gmail.com") ;
+
 create table licencas (
 id int auto_increment,
 nomelicenca varchar(150),
@@ -121,6 +129,12 @@ licenca int,
 primary key(id),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
+create table perfil(
+id int auto_increment,
+usuario int,
+primary key(id),
+foreign key(usuario) references usuarios(id),
+foreign key(usuario) references eleitores(id))engine=innodb charset=utf8;
 
 -- alter table eleitores add column lideranca boolean default 0;
 create table atividade(
