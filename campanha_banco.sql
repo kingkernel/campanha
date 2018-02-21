@@ -167,17 +167,6 @@ primary key(id))engine=innodb charset=utf8;
 
 -- alterações do banco de dados da campanha eleitoral
 -- data alterações 22/01/2018
-
-create table mensagens(
-id bigint auto_increment,
-sender int,
-receiver int,
-messageopen boolean,
-messagetext text,
-messagedel boolean default 0,
-messagecontext varchar(30),
-primary key(id))engine=innodb charset=utf8;
-
 create table tarefas(
 id int auto_increment,
 nometarefa varchar(50),
@@ -189,7 +178,42 @@ descricao text,
 concluida boolean default 0,
 primary key(id))engine=innodb charset=utf8;
 
-delimiter //
-	create procedure sp_add_messages()
-delimiter ;
+create table mensagens(
+id bigint auto_increment,
+sender int,
+receiver int,
+messageopen boolean default 0,
+messagetext text,
+messagedel boolean default 0,
+messagecontext varchar(30),
+primary key(id))engine=innodb charset=utf8;
 
+create table message_group(
+id int auto_increment,
+nomegroup varchar(100),
+licenca int,
+criador int,
+primary key(id),
+foreign key(licenca) references licencas(id),
+foreign key(criador) references usuarios(id),
+foreign key(criador) references eleitores(id))engine=innodb charset=utf8;
+ 
+create table msggroup_members(
+id int auto_increment,
+grupo int,
+membro int,
+primary key(id),
+foreign key(grupo) references message_group(id),
+foreign key(membro) references usuarios(id),
+foreign key(membro) references eleitores(id))engine=innodb charset=utf8;
+
+
+delimiter //
+	create procedure sp_add_messagem(arg_sender int, arg_receiver int,
+	arg_messagetext text, arg_messagecontext varchar(30))
+		begin
+			insert into mensagens(sender, receiver, messagetext, messagecontext)
+			values (arg_sender, arg_receiver, arg_messagetext, arg_messagecontext);
+		end //
+delimiter ;
+call sp_add_messagem(2, 117, "Você precisa terminar esse sistema", "single");

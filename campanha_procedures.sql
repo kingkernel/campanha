@@ -9,6 +9,7 @@ delimiter //
 	create procedure sp_add_usuarios(arg_email varchar(50), arg_licenca int)
 		begin
 			insert into usuarios (email, snhpwd, licenca) values (arg_email, sha1(md5(sha1("1234"))), arg_licenca);
+			insert into eleitores(email, licenca) values (arg_email, arg_licenca);
 		end //
 delimiter ;
 
@@ -96,12 +97,42 @@ delimiter ;
 delimiter //
 	create procedure sp_sel_membros(arg_licenca int)
 	begin
-		SELECT eleitores.id, eleitores.nomeeleitor as nome, eleitores.licenca
-		FROM eleitores where eleitores.licenca=arg_licenca
+		SELECT eleitores.id, eleitores.nomeeleitor as nome, eleitores.licenca,
+			eleitores.acesso as recebe
+		FROM eleitores where eleitores.licenca=arg_licenca and eleitores.acesso=1
 			UNION
-		SELECT usuarios.id, usuarios.nome, usuarios.licenca
-		FROM usuarios where usuarios.licenca=arg_licenca;
+		SELECT usuarios.id, usuarios.nome, usuarios.licenca, usuarios.ativo as recebe
+		FROM usuarios where usuarios.licenca=arg_licenca and usuarios.ativo=1;
 	end //
+delimiter ;
+
+ sender
+ receiver
+ messageopen
+ messagetext
+ messagedel
+ messagecontext
+delimiter //
+	create procedure sp_add_mensagem_single(arg_sender int, arg_receiver int, arg_msgtext text, context):
+		begin
+			insert into mensagens(sender, receiver, messagetext) values (arg_sender, arg_receiver, arg_msgtext);
+		end //
+delimiter ;
+
+delimiter //
+	create procedure sp_add_group(arg_nomegroup varchar(100), arg_licenca int,
+			arg_criador int)
+		begin
+			insert into message_group (nomegroup, licenca, criador) values 
+			(arg_nomegroup, arg_licenca, arg_criador);
+		end //
+delimiter ;
+
+delimiter //
+	create procedure sp_add_mensagem_group()
+		begin
+			insert into messages
+		end //
 delimiter ;
 
 call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");

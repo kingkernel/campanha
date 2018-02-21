@@ -1,7 +1,7 @@
 <?php 
 /**
 Criação 15/11/2017
-Última Alteração: 17/01/2018
+Última Alteração: 21/02/2018
 Autor: Daniel J. Santos
 E-mail: daniel.santos.ap@gmail.com
 **/
@@ -152,11 +152,11 @@ class inline{
         
     }
     public function html(){
-        $this->somacontent = '<div class="form-inline" style="margin-left:10px; margin-right: 10px"><label for="nasc">Nascimento : </label><select class="form-control" style="margin-bottom:10px;" name="anouser"><option> ANO </option>';$x=2017; while ($x >= 1900) {$this->somacontent .= '<option value="'.$x.'"">'.$x.'</option>';$x--;};$this->somacontent .= '</select> <select class="form-control" style="margin-bottom:10px;" name="mesuser"><option> MÊS </option>';$meses = array("01"=>"Janeiro", "02"=>"Fevereiro", "03"=>"Março", "04"=>"Abril", "05"=>"Maio", "06"=>"Junho", "07"=>"Julho", "08"=>"Agosto", "09"=>"Setembro", "10"=>"Outubro", "11"=>"Novembro", "12"=>"Dezembro");foreach ($meses as $key => $value) {$this->somacontent .= '<option value="'.$key.'">'.$value.'</option>';};$this->somacontent .= '</select> <select class="form-control" style="margin-bottom:10px;" name="diauser"><option> DIA </option>';$x=1;while ($x <= 31) {$this->somacontent .= '<option value="'.$x.'">'.$x.'</option>';$x++;};$this->somacontent .= '</select></div>';
+        $this->somacontent = '<div class="form-inline" style="margin-left:10px; margin-right: 10px"><label for="nasc">Nascimento : </label><select class="form-control" style="margin-bottom:10px;" name="anouser"><option> ANO </option>';$x=2018; while ($x >= 1900) {$this->somacontent .= '<option value="'.$x.'"">'.$x.'</option>';$x--;};$this->somacontent .= '</select> <select class="form-control" style="margin-bottom:10px;" name="mesuser"><option> MÊS </option>';$meses = array("01"=>"Janeiro", "02"=>"Fevereiro", "03"=>"Março", "04"=>"Abril", "05"=>"Maio", "06"=>"Junho", "07"=>"Julho", "08"=>"Agosto", "09"=>"Setembro", "10"=>"Outubro", "11"=>"Novembro", "12"=>"Dezembro");foreach ($meses as $key => $value) {$this->somacontent .= '<option value="'.$key.'">'.$value.'</option>';};$this->somacontent .= '</select> <select class="form-control" style="margin-bottom:10px;" name="diauser"><option> DIA </option>';$x=1;while ($x <= 31) {$this->somacontent .= '<option value="'.$x.'">'.$x.'</option>';$x++;};$this->somacontent .= '</select></div>';
         return $this->somacontent;
     }
     public function render(){
-    echo '<div class="form-inline" style="margin-left:10px; margin-right: 10px"><label for="nasc">Nascimento : </label><select class="form-control" name="anouser" style="margin-bottom:10px;"><option> ANO </option>';$x=2017; while ($x >= 1900) {echo '<option value="'.$x.'"">'.$x.'</option>';$x--;};echo '</select> <select class="form-control" name="mesuser" style="margin-bottom:10px;"><option> MÊS </option>';$meses = array("01"=>"Janeiro", "02"=>"Fevereiro", "03"=>"Março", "04"=>"Abril", "05"=>"Maio", "06"=>"Junho", "07"=>"Julho", "08"=>"Agosto", "09"=>"Setembro", "10"=>"Outubro", "11"=>"Novembro", "12"=>"Dezembro");foreach ($meses as $key => $value) {echo '<option value="'.$key.'">'.$value.'</option>';};echo '</select> <select class="form-control" name="anouser" style="margin-bottom:10px;"><option> DIA </option>';$x=1;while ($x <= 31) {echo '<option value="'.$x.'">'.$x.'</option>';$x++;};echo '</select></div>';
+    echo '<div class="form-inline" style="margin-left:10px; margin-right: 10px"><label for="nasc">Nascimento : </label><select class="form-control" name="anouser" style="margin-bottom:10px;"><option> ANO </option>';$x=2018; while ($x >= 1900) {echo '<option value="'.$x.'"">'.$x.'</option>';$x--;};echo '</select> <select class="form-control" name="mesuser" style="margin-bottom:10px;"><option> MÊS </option>';$meses = array("01"=>"Janeiro", "02"=>"Fevereiro", "03"=>"Março", "04"=>"Abril", "05"=>"Maio", "06"=>"Junho", "07"=>"Julho", "08"=>"Agosto", "09"=>"Setembro", "10"=>"Outubro", "11"=>"Novembro", "12"=>"Dezembro");foreach ($meses as $key => $value) {echo '<option value="'.$key.'">'.$value.'</option>';};echo '</select> <select class="form-control" name="anouser" style="margin-bottom:10px;"><option> DIA </option>';$x=1;while ($x <= 31) {echo '<option value="'.$x.'">'.$x.'</option>';$x++;};echo '</select></div>';
     }
 }
 class submit{
