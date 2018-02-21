@@ -92,7 +92,17 @@ delimiter //
 			select * from equipes where licenca=arg_licenca;
 		end //
 delimiter ;
-
+-- altrações MENSAGENS
+delimiter //
+	create procedure sp_sel_membros(arg_licenca int)
+	begin
+		SELECT eleitores.id, eleitores.nomeeleitor as nome, eleitores.licenca
+		FROM eleitores where eleitores.licenca=arg_licenca
+			UNION
+		SELECT usuarios.id, usuarios.nome, usuarios.licenca
+		FROM usuarios where usuarios.licenca=arg_licenca;
+	end //
+delimiter ;
 
 call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");
 call sp_add_licencas("Licença 2", "testes", sha1(md5(md5("teste2"))), "2018-01-30");
