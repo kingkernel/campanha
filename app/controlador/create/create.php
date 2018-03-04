@@ -2,6 +2,7 @@
 /*
 Data criação: 16/01/2018
 Última atualização: 30/01/2018
+
 */
 class create {
 	public function __construct(){
@@ -46,6 +47,7 @@ class create {
 		
 		$pagina->scriptsendpage = $form->cadastroIn()[2].$funcaoSuccess.$funcaoError;
 		$pagina->render();
+		echo "<br/></br/>";
 	}
 }
 ?>

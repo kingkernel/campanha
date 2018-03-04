@@ -23,7 +23,6 @@ class grava{
 
 		$sucesso = '<script>result0();</script>';
 		$erro = '<script>result1();</script>';
-		echo $sql;
 		echo $query = fastquery_messages($sql, $erro, $sucesso);
 	}
 	public function assessor(){

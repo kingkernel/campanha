@@ -10,6 +10,20 @@ $_SESSION["load"]=parse_ini_file("config.ini.php", true);
 Arquivo .ini com configurações do banco de dados
 encarregado de armazenar as informações de confuguração do banco de dados tanto off-line quanto on-line
 **/
+function convertToCols($resultSet){
+    $data = $resultSet->fetch(PDO::FETCH_ASSOC);
+    $set ='<tr><td>';
+    $set .= implode('</td><td>', $data);
+    $set .= '</td></tr>';
+   // print_r($data);
+    return $set . "<br/>";
+    //print_r(array_keys($data));
+};
+function validate($action){
+    if(!isset($_SESSION["logado"])){
+        return $action;
+    };
+}
 function urlcss($url){
 	if (!isset($url["urldigitada"])){$url["urldigitada"] = "";};$espacos = explode("/", $url["urldigitada"]);$total = count($espacos);$barras="";$x=2;while ($x <= $total){$barras .= "../";$x++;};return $barras;
 };
@@ -19,7 +33,7 @@ function minimalheader($pastas){
     **/
     return '<link href="'.$pastas.'public/css/bootstrap.min.css" rel="stylesheet"><link href="'.$pastas.'public/css/bootstrap-theme.min.css" rel="stylesheet"><script src="'.$pastas.'public/js/jquery-1.11.1.min.js"></script><script src="'.$pastas.'public/js/bootstrap.min.js"></script><style type="text/css">.label,.glyphicon, .fa{ margin-right:5px; }</style>';
 };
-function compacta($template){
+function getjs($template){
     $compatada = preg_replace(array("/\n/", "/\s{2}/", "/\t/"), "", file_get_contents($template));
     return $compatada;
 };
@@ -53,7 +67,6 @@ function fastquery_messages($sql, $mensagem1, $mensagem2){
     //$pdo->prepare($sql);
     if (!$pdo->exec($sql)){
         return $mensagem1;
-
     } else {
         return $mensagem2;
     };

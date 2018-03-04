@@ -1,4 +1,5 @@
 delimiter //
+delimiter //
 	create procedure sp_add_licencas(arg_nomelicenca varchar(150), arg_contato varchar(150), arg_licenca varchar(65), arg_dataexpiracao date)
 		begin 
 			insert into licencas(nomelicenca, contato, licenca, dataexpiracao) values (arg_nomelicenca, arg_contato, arg_licenca, arg_dataexpiracao);
@@ -55,7 +56,7 @@ delimiter ;
 delimiter //
 	create procedure sp_autheleitor(arg_usuario varchar(50))
 		begin
-			SELECT eleitores.nomeeleitor as nome, eleitores.email, eleitores.id, eleitores.licenca as idlicenca, licencas.nomelicenca, licencas.dataexpiracao FROM campanha.eleitores eleitores INNER JOIN campanha.licencas licencas ON (eleitores.licenca = licencas.id) where eleitores.email=arg_usuario;
+			SELECT eleitores.nomeeleitor as nome, eleitores.email, eleitores.id, eleitores.licenca as idlicenca, licencas.nomelicenca, licencas.dataexpiracao FROM eleitores INNER JOIN licencas ON (eleitores.licenca = licencas.id) where eleitores.email=arg_usuario;
 			set @idusuario=(select id from eleitores where usuarios.email=arg_usuario);
 			insert into logsistema (usuario, acao, dataacao) values (@idusuario, "Logou-se no sistema", now());
 		end //
@@ -67,21 +68,21 @@ delimiter //
 			select count(*) as total from eleitores where licenca=arg_licenca;
 		end //
 delimiter ;
-
+-- alterar online
 delimiter //
 	create procedure sp_getbairros(arg_licenca int)
 		begin
-			select distinct(bairro) as bairros from eleitores where licenca=arg_licenca;
+			select distinct(bairro) as bairros from eleitores where licenca=arg_licenca and bairro!='';
 		end //
 delimiter ;
 
 delimiter //
 	create procedure sp_getcidades(arg_licenca int)
 		begin
-			select distinct(cidade) as cidades from eleitores where licenca=arg_licenca;
+			select distinct(cidade) as cidades from eleitores where licenca=arg_licenca = cidade!='';
 		end //
 delimiter ;
-
+-- acima
 create view equipes as
 SELECT email as email, id as id, nome as nome, licenca as licenca FROM usuarios where ativo=1
       union
@@ -93,7 +94,7 @@ delimiter //
 			select * from equipes where licenca=arg_licenca;
 		end //
 delimiter ;
--- altrações MENSAGENS
+
 delimiter //
 	create procedure sp_sel_membros(arg_licenca int)
 	begin
@@ -106,14 +107,8 @@ delimiter //
 	end //
 delimiter ;
 
- sender
- receiver
- messageopen
- messagetext
- messagedel
- messagecontext
 delimiter //
-	create procedure sp_add_mensagem_single(arg_sender int, arg_receiver int, arg_msgtext text, context):
+	create procedure sp_add_mensagem_single(arg_sender int, arg_receiver int, arg_msgtext text)
 		begin
 			insert into mensagens(sender, receiver, messagetext) values (arg_sender, arg_receiver, arg_msgtext);
 		end //
@@ -129,11 +124,109 @@ delimiter //
 delimiter ;
 
 delimiter //
-	create procedure sp_add_mensagem_group()
+	create procedure sp_add_messagem(arg_sender int, arg_receiver int,
+	arg_messagetext text, arg_messagecontext varchar(30))
 		begin
-			insert into messages
+			insert into mensagens(sender, receiver, messagetext, messagecontext)
+			values (arg_sender, arg_receiver, arg_messagetext, arg_messagecontext);
 		end //
 delimiter ;
+
+delimiter //
+	create procedure sel_newmessages(arg_id int)
+		begin
+			select count(*)as novas from mensagens where receiver=arg_id and messageopen=0;
+		end //
+delimiter ;
+
+delimiter //
+	create procedure sel_allmessages(arg_id int)
+	begin
+		select count(*) as todas from mensagens where receiver=arg_id and sender=arg_id;
+	end //
+delimiter ;
+
+delimiter //
+	create procedure sel_noopen(arg_id int)
+	begin
+		SELECT  mensagens.id, mensagens.receiver, usuarios.nome
+				FROM mensagens
+				INNER JOIN usuarios
+				ON (mensagens.receiver = usuarios.id)
+				WHERE mensagens.receiver=arg_id and messageopen=0;
+	end //
+delimiter ;
+-- altrações MENSAGENS
+create view allmessagestext as 
+		SELECT mensagens.id,
+       mensagens.sender,
+       mensagens.receiver,
+       mensagens.messageopen,
+       usuarios.nome,
+       mensagens.messagetext
+FROM mensagens
+     INNER JOIN usuarios
+        ON (mensagens.receiver = usuarios.id)
+union
+SELECT mensagens.id,
+       mensagens.sender,
+       mensagens.receiver,
+       mensagens.messageopen,
+       mensagens.messagetext,
+       eleitores.nomeeleitor as nome
+FROM mensagens
+     INNER JOIN eleitores
+        ON (mensagens.receiver = eleitores.id);
+
+delimiter //
+	create procedure sel_openmessages(arg_id int)	
+	begin
+		select * from allmessagestext where messageopen=1 and sender=arg_id;
+	end //
+delimiter ;
+
+delimiter //
+	create procedure sel_noopenmessages(arg_id int)	
+	begin
+		select * from allmessagestext where messageopen=0 and sender=arg_id;
+	end //
+delimiter ;
+
+delimiter //
+	create procedure sel_singlemessage(arg_id int)
+	begin
+		select * from mensagens where id=arg_id and messageopen=0;
+	end //
+delimiter ;
+
+delimiter //
+	create procedure sp_sel_eleitores(arg_licenca int, arg_id  int)
+	begin
+		select eleitores.nomeeleitor, eleitores.cidade, eleitores.bairro, 
+		eleitores.rua, eleitores.numero
+		from eleitores where eleitores.licenca=arg_licenca 
+		and eleitores.cadfor=arg_id group by eleitores.cidade, eleitores.bairro, 
+        eleitores.rua, eleitores.numero order by eleitores.cidade asc;
+	end //
+delimiter ;
+/*
+SELECT eleitores.nomeeleitor,
+       eleitores.cidade,
+       eleitores.bairro,
+       eleitores.rua,
+       eleitores.numero,
+       eleitores.licenca,
+       eleitores.cadfor
+FROM   eleitores eleitores
+
+WHERE 
+       eleitores.licenca=1 and eleitores.cadfor=1
+GROUP BY eleitores.cidade,
+         eleitores.bairro,
+         eleitores.rua,
+         eleitores.numero
+ORDER BY eleitores.cidade ASC;
+*/
 
 call sp_add_licencas("licença de testes", "Developer", sha1(md5(md5("teste"))), "2018-12-31");
 call sp_add_licencas("Licença 2", "testes", sha1(md5(md5("teste2"))), "2018-01-30");
@@ -141,6 +234,7 @@ call sp_add_licencas("Alexandre", "Alex", sha1(md5(md5("lele"))), "2018-01-30");
 call sp_add_licencas("Demostração do Sistema", "Demostração", sha1(md5(md5("demo"))), "2018-01-30");
 
 call sp_add_usuarios("root",1);
+update usuarios set nome="Adminstrador" where id=1;
 call sp_add_usuarios("teste", 2);
 call sp_add_usuarios("Alexandre", 3);
 call sp_add_usuarios("demo", 4);

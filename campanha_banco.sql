@@ -167,6 +167,7 @@ primary key(id))engine=innodb charset=utf8;
 
 -- alterações do banco de dados da campanha eleitoral
 -- data alterações 22/01/2018
+
 create table tarefas(
 id int auto_increment,
 nometarefa varchar(50),
@@ -207,13 +208,3 @@ foreign key(grupo) references message_group(id),
 foreign key(membro) references usuarios(id),
 foreign key(membro) references eleitores(id))engine=innodb charset=utf8;
 
-
-delimiter //
-	create procedure sp_add_messagem(arg_sender int, arg_receiver int,
-	arg_messagetext text, arg_messagecontext varchar(30))
-		begin
-			insert into mensagens(sender, receiver, messagetext, messagecontext)
-			values (arg_sender, arg_receiver, arg_messagetext, arg_messagecontext);
-		end //
-delimiter ;
-call sp_add_messagem(2, 117, "Você precisa terminar esse sistema", "single");
