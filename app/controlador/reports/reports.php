@@ -50,6 +50,9 @@ class reports{
 	public function porcidades(){
 		$pagina = new page_site;
 			$topmenu = new topmenu_campanha;
+
+			$quantidade = new resumeReport;
+			
 		$pagina->bodycontent = $topmenu->html().'<br/><br/><br/>';
 		$pagina->render();
 	}

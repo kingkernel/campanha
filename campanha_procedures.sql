@@ -209,6 +209,16 @@ delimiter //
         eleitores.rua, eleitores.numero order by eleitores.cidade asc;
 	end //
 delimiter ;
+
+delimiter //
+	create procedure sp_getcidadesquant(arg_licenca int)
+		begin
+			select cidade, count(eleitores.id) as total from eleitores
+			where (cidade != '') and licenca=arg_licenca group by cidade;
+		end //
+delimiter ;
+
+
 /*
 SELECT eleitores.nomeeleitor,
        eleitores.cidade,
