@@ -1,7 +1,15 @@
+-- #####################################################################
+--				Banco de dados da Agenda Anubis
+--				Data criação: 10/01/2018
+--				Aletração: 11/03/2018
+--				Autor: daniel.santos.ap@gmail.com
+-- #####################################################################
 create database campanha character set=utf8;
 
 use campanha;
+-- ignore as duas linhas em hospedagens
 
+-- tabela de log do sistema
 create table logsistema(
 id int auto_increment,
 usuario int,
@@ -9,17 +17,20 @@ acao text,
 dataacao datetime,
 primary key(id))engine=innodb charset=utf8;
 
+-- tabela de administração do sistema [logins administrativos]
 create table administracao(
 id int auto_increment,
 administradores varchar(50),
 snhpwd varchar(64),
 ativo boolean default 0,
+nivel varchar(35) default "programador",
 primary key(id))engine=innodb charset=utf8;
+-- (programador, vendedor)
 
 create table current_system(
 nomesistema varchar(50) primary key,
 versao double(4,2),
-emailcriador varchar(50))engine=innodb charset=utf8;
+emailcriador varchar(50))engine=innodb charset=utdf8;
 
 insert into current_system (nomesistema, versao, emailcriador) values
 ("Agenda Anubis", "1.0", "daniel.santos.ap@gmail.com") ;
@@ -37,9 +48,13 @@ create table licenca_config(
 id int auto_increment,
 licenca int,
 campanha varchar(50),
-tipo enum("municipal", "estadual"),
+tipo enum("municipal", "estadual", "site-eleitor") default "municipal",
+mapkey varchar(40),
+responsavel varchar(50),
 primary key(id),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8; 
+
+-- AIzaSyD5PEcj6kLmlUT7tugLOy9wGygX_ptWGUY - mykey maps
 
 create table usuarios(
 id int auto_increment,
@@ -49,11 +64,13 @@ ativo boolean default 0,
 nome varchar(30),
 licenca int,
 atributos varchar(1024), -- json com algumas informações da companhia
+tipousuario varchar(35) default "simpatizante",
 primary key(id),
 unique(email),
 foreign key(licenca) references licencas(id) -- ,
 -- check(JSON_VALID(atributos))
 )engine=innodb charset=utf8;
+-- tipo de usuario (candidato, simpatizante, assessor)
 
 create table permissions(
 id int auto_increment,
@@ -75,16 +92,22 @@ foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 create table estados (
 id int auto_increment,
 nomeestado varchar(45),
-sigla varchar(2),
+siglaestado varchar(2),
+ativo boolean default 0,
 primary key(id),
 unique(sigla))engine=innodb charset=utf8;
+
+insert into estados (nomeestado, sigla) values ("Acre", "AC"),("Alagoas", "AL"),("Amapá", "AP"),("Amazonas", "AM"),("Bahia", "BA"),("Ceará", "CE"),("Distrito Federal", "DF"),("Espírito Santo", "ES"),("Goiás", "GO"),("Maranhão", "MA"),("Mato Grosso", "MT"),("Mato Grosso do Sul", "MS"),("Minas Gerais", "MG"),("Pará", "PA"),("Paraíba", "PB"),("Paraná", "PR"),("Pernambuco", "PE"),("Piauí", "PI"),("Rio de Janeiro", "RJ"),("Rio Grande do Norte", "RN"),("Rio Grande do Sul", "RS"),("Rondônia", "RO"),("Roraima", "RR"),("Santa Catarina", "SC"),("São Paulo", "SP"),("Sergipe", "SE"),("Tocantins", "TO");
 
 create table cidades (
 id int auto_increment,
 nomecidade varchar(45),
 sigla varchar(2),
+ativo boolean default 0,
 primary key(id),
 foreign key(sigla) references estados(sigla))engine=innodb charset=utf8;
+
+insert into cidades (nomecidade, sigla) values ("Macapá", "MCP");
 
 create table bairros(
 id int auto_increment,
@@ -115,6 +138,13 @@ licenca int,
 primary key(id),
 -- check(JSON_VALID(atributos)),
 foreign key(licenca) references licencas(id)) engine=innodb charset=utf8;
+
+create table niveis(
+nivel varchar(35),primary key,
+sigla varchar(2))engine=innodb charset=utf8;
+
+insert into niveis(nivel, sigla)values ("Dirigentes", "DR"), ("Lideres", "LD"),
+("Multiplicadores", "MP"), ("Apoiadores", "AP"), ("Porta-Voz", "PV");
 
 create table eleitores(
 id int auto_increment,
@@ -207,4 +237,24 @@ primary key(id),
 foreign key(grupo) references message_group(id),
 foreign key(membro) references usuarios(id),
 foreign key(membro) references eleitores(id))engine=innodb charset=utf8;
+-- novas alterações
+create table trackinuser(
+id bigint auto_increment,
+userid int,
+cordenadas varchar(300),
+primary key(id),
+foreign key(userid) references usuarios(id))engine=innodb charset=utf8;
 
+create table classication(
+id int auto_increment,
+campanha int,
+primary key(id))engine=innodb charset=utf8;
+
+alter table administracao add column nivel varchar(35) default "simpatizante";
+alter table licenca_config add column responsavel varchar(50),
+alter table estados add column ativo boolean default 0;
+alter table cidades add column ativo boolean default 0;
+alter table cidades change sigla siglaestado varchar(2);
+alter table usuarios add column tipousuario varchar(35) default "simpatizante",
+
+create table receita()engine=innodb charset=utf8;

@@ -40,7 +40,6 @@ class reports{
 			$num++;
 		}
 	/*
-		resumeReport Object ( [somacontent] => [total] => Array ( [total] => 4 ) [cidades] => Array ( [0] => [1] => Mazagão [2] => Santana ) [bairros] => Array ( [0] => [1] => Olaria [2] => laranjeiras [3] => REMEDIOS II ) [reportItens] => Array ( ) )
     */
 		$pagina = new page_site;
 			$topmenu = new topmenu_campanha;
@@ -52,8 +51,9 @@ class reports{
 			$topmenu = new topmenu_campanha;
 
 			$quantidade = new resumeReport;
-			
+			$js = getJs(".".PUBLICDIR."js/this/notifyVerify.js");
 		$pagina->bodycontent = $topmenu->html().'<br/><br/><br/>';
+		$pagina->scriptsendpage = str_replace("@dnaSplit", "|", $js."getMorf('split|my|quest|system');");
 		$pagina->render();
 	}
 	public function porBairros(){

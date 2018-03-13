@@ -1,7 +1,7 @@
 <?php 
 /**
 Criação 15/11/2017
-Última Alteração: 21/02/2018
+Última Alteração: 11/03/2018
 Autor: Daniel J. Santos
 E-mail: daniel.santos.ap@gmail.com
 **/
@@ -10,6 +10,28 @@ $_SESSION["load"]=parse_ini_file("config.ini.php", true);
 Arquivo .ini com configurações do banco de dados
 encarregado de armazenar as informações de confuguração do banco de dados tanto off-line quanto on-line
 **/
+function includeFile($filelist, $path = ''){
+    $include = [];
+    foreach ($filelist as $key => $value) {
+        $file = explode('.', $value);
+        $quant = (count($file))-1;
+        switch ($file[$quant]) {
+                  case 'js':
+                      $file = '<script type="text/javascript" src="'.$path."js/".$value.'"></script>';
+                      array_push($include, $file);
+                      break;
+                  case 'css':
+                      $file = '<link rel="stylesheet" type="text/css" href="'.$path."css/".$value.'" />';
+                      array_push($include, $file);
+                      break;
+                  default:
+                      $file = 'inlcude("'.$value.'")';
+                      array_push($include, $file);
+                      break;
+              };
+    };
+    return $include;
+};
 function convertToCols($resultSet){
     $data = $resultSet->fetch(PDO::FETCH_ASSOC);
     $set ='<tr><td>';

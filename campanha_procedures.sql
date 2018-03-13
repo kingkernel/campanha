@@ -1,4 +1,8 @@
-delimiter //
+-- #####################################################################
+-- 		procedures do banco de dados companha
+-- #####################################################################
+
+-- procedure para inserir usuarios
 delimiter //
 	create procedure sp_add_licencas(arg_nomelicenca varchar(150), arg_contato varchar(150), arg_licenca varchar(65), arg_dataexpiracao date)
 		begin 
@@ -87,7 +91,27 @@ create view equipes as
 SELECT email as email, id as id, nome as nome, licenca as licenca FROM usuarios where ativo=1
       union
 SELECT email as email, id as id, nomeeleitor as nome, licenca as licenca FROM eleitores where acesso=1;
-
+-- altrações MENSAGENS
+create view allmessagestext as 
+		SELECT mensagens.id,
+       mensagens.sender,
+       mensagens.receiver,
+       mensagens.messageopen,
+       usuarios.nome,
+       mensagens.messagetext
+FROM mensagens
+     INNER JOIN usuarios
+        ON (mensagens.receiver = usuarios.id)
+union
+SELECT mensagens.id,
+       mensagens.sender,
+       mensagens.receiver,
+       mensagens.messageopen,
+       mensagens.messagetext,
+       eleitores.nomeeleitor as nome
+FROM mensagens
+     INNER JOIN eleitores
+        ON (mensagens.receiver = eleitores.id);
 delimiter //
 	create procedure sp_selmessageto(arg_licenca int)
 		begin
@@ -156,27 +180,7 @@ delimiter //
 				WHERE mensagens.receiver=arg_id and messageopen=0;
 	end //
 delimiter ;
--- altrações MENSAGENS
-create view allmessagestext as 
-		SELECT mensagens.id,
-       mensagens.sender,
-       mensagens.receiver,
-       mensagens.messageopen,
-       usuarios.nome,
-       mensagens.messagetext
-FROM mensagens
-     INNER JOIN usuarios
-        ON (mensagens.receiver = usuarios.id)
-union
-SELECT mensagens.id,
-       mensagens.sender,
-       mensagens.receiver,
-       mensagens.messageopen,
-       mensagens.messagetext,
-       eleitores.nomeeleitor as nome
-FROM mensagens
-     INNER JOIN eleitores
-        ON (mensagens.receiver = eleitores.id);
+
 
 delimiter //
 	create procedure sel_openmessages(arg_id int)	

@@ -11,7 +11,6 @@ class resumeReport{
 	public $infoListText;
 	public $bigtitle = 'nome';
 	public function __construct(){
-
 	}
 	public function getResume(){
 		$sql = 'call sp_getcidades('.$_SESSION["userinfo"]["idlicenca"].')';

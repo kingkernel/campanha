@@ -12,7 +12,7 @@ class resumeReportItem{
 
 	}
 	public function html(){
-		$this->addContent = '<div><div class="col-md-4"> '.$this->nome.' :</div><div class="col-md-8"><div class="progress '.$this->progressStyle.'"><div id="'.$this->id.'" class="progress-bar progress-bar-'.$this->progressColor.'" role="progressbar" aria-valuenow="5"  aria-valuemin="0" aria-valuemax="100" style="width: '.$this->barSize.'%;"><span class="overbarprogress">'.$this->barOverlayText.'</span></div></div></div></div>';
+		$this->addContent = '<div><div class="col-md-4"> '.$this->nome.' :</div><div class="col-md-8"><div class="progress '.$this->progressStyle.'"><div id="'.$this->id.'" class="progress-bar progress-bar-'.$this->progressColor.'" role="progressbar" aria-valuenow="5" aria-valuemin="0" aria-valuemax="100" style="width: '.$this->barSize.'%;"><span class="overbarprogress">'.$this->barOverlayText.'</span></div></div></div></div>';
 		return $this->addContent;
 	}
 }
