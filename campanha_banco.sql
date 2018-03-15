@@ -165,6 +165,7 @@ tipoeleitor varchar(35) default "eleitor",
 lideranca boolean default 0,
 licenca int,
 primary key(id),
+unique(email),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
 create table perfil(
