@@ -1,16 +1,10 @@
 <?php
-/*
-data de criação: 2016
-Última Alteração: 29/01/2018
-Autor: daniel.santos.ap@gmail.com
-*/
-class auth {
-	private $user;
-	private $password;
-
-	public function __construct(){
+class painelAdministrativo extends auth {
+	public function __contruct(){
+		$this->index();
 	}
 	public function index(){
+		//print_r($_POST);
 		/**
 		captura os dados do formulario
 		**/
@@ -49,27 +43,6 @@ class auth {
 			$error->e404();
 			echo "login desativado ou inexistente : ";
 			};
-	}
-	public function logout(){
-		session_unset($_SESSION["LOGADO"]);
-		session_destroy();
-		header("Location: /");
-		echo "<script>document.reload();</script>";
-		echo "saiu";
-	}
-	public function checkAuth(){
-		if(!isset($_SESSION["LOGADO"]) || !isset($_SESSION["usuario"])){
-			unset($_SESSION);
-			header("Location: /");
-			echo "<script>document.reload();</script>";
-		}
-	}
-	public function carrier(){
-		$passenger = explode("/", $_GET["urldigitada"]);
-		$carrier = new $passenger[2];
-		$carrier->__contruct();
-
-
 	}
 }
 ?>

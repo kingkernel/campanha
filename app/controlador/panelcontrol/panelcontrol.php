@@ -1,15 +1,18 @@
 <?php
 class panelcontrol{
+	public $page;
 	public function __construct(){
-
+		$this->page = new page_site;
+		return $this;
 	}
 	public function index(){
-		$pagina = new page_site;		
-			$cardlogin = new cardflip;
-		$pagina->headersinclude .="<style>".$cardlogin->addcss."</style>";
-		$pagina->scriptsendpage = $cardlogin->addjsend;
-		$pagina->bodycontent = $cardlogin->html();
-		$pagina->render();
+		$loginBox = new simpleLoginBox;
+		$loginBox->action = "auth/carrier/painelAdministrativo/";
+		$this->page->bodycontent = $loginBox->html();
+		$this->page->render();
+	}
+	public function manager(){
+		
 	}
 }
 ?>
