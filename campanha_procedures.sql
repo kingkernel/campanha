@@ -222,6 +222,13 @@ delimiter //
 		end //
 delimiter ;
 
+delimiter //
+	create procedure sp_login_admpanel(arg_email varchar(50), arg_snhpwd varchar(64))
+		begin
+			select count(*) as haveone from administradores where administradores=arg_email and snhpwd=arg_snhpwd and ativo=1;
+		end //
+delimiter ;
+
 
 /*
 SELECT eleitores.nomeeleitor,
@@ -253,3 +260,4 @@ call sp_add_usuarios("teste", 2);
 call sp_add_usuarios("Alexandre", 3);
 call sp_add_usuarios("demo", 4);
 update usuarios set ativo=1;
+

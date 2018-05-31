@@ -1,7 +1,7 @@
 -- #####################################################################
---				Banco de dados da Agenda Anubis
+--				Banco de dados da Agenda Anubis \\ CAMPANHA ELEITORAL //
 --				Data criação: 10/01/2018
---				Aletração: 11/03/2018
+--				AltEração: 09/05/2018
 --				Autor: daniel.santos.ap@gmail.com
 -- #####################################################################
 create database campanha character set=utf8;
@@ -9,15 +9,39 @@ create database campanha character set=utf8;
 use campanha;
 -- ignore as duas linhas em hospedagens
 
+-- #####################################################################
+-- tabela de error router 
+-- quando algo é digitado fora do caminho normal
+-- #####################################################################
+create table errorrouter(
+id bigint auto_increment,
+urldigitada varchar(200),
+momento datetime,
+usuario varchar(50),
+primary key(id))engine=innodb charset=utf8;
+-- #####################################################################
+-- tabela de bugs 
+-- bugs relatados pelos usuarios
+-- #####################################################################
+create table reportbugs(
+id bigint auto_increment,
+bug text,
+momento datetime,
+usuario varchar(50),
+primary key(id))engine=innodb charset=utf8;
+-- #####################################################################
 -- tabela de log do sistema
+-- informações gerais do sistema
+-- #####################################################################
 create table logsistema(
 id int auto_increment,
 usuario int,
 acao text,
 dataacao datetime,
 primary key(id))engine=innodb charset=utf8;
-
+-- #####################################################################
 -- tabela de administração do sistema [logins administrativos]
+-- #####################################################################
 create table administracao(
 id int auto_increment,
 administradores varchar(50),
@@ -25,7 +49,7 @@ snhpwd varchar(64),
 ativo boolean default 0,
 nivel varchar(35) default "programador",
 primary key(id))engine=innodb charset=utf8;
--- (programador, vendedor)
+-- (programador, vendedor, partido);
 
 create table current_system(
 nomesistema varchar(50) primary key,
@@ -55,6 +79,11 @@ primary key(id),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8; 
 
 -- AIzaSyD5PEcj6kLmlUT7tugLOy9wGygX_ptWGUY - mykey maps
+-- TABELA DE TIPO DE USUARIOS --Y
+create table tipousuario(
+tipousuario varchar(35) primary key)engine=innodb charset=utf8;
+
+insert into tipousuario (tipousuario) values ("simpatizante"), ("candidato"), ("assessor"), ("coordenador"), ("Diretor Partidário");
 
 create table usuarios(
 id int auto_increment,
@@ -67,6 +96,7 @@ atributos varchar(1024), -- json com algumas informações da companhia
 tipousuario varchar(35) default "simpatizante",
 primary key(id),
 unique(email),
+foreign key (tipousuario) rerferences tipousuario(tipousuario),
 foreign key(licenca) references licencas(id) -- ,
 -- check(JSON_VALID(atributos))
 )engine=innodb charset=utf8;
