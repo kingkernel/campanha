@@ -82,8 +82,8 @@ function fastquery_messages($sql, $mensagem1, $mensagem2){
     Nome:           fastquery_messages
     Função:         executa uma inserção no banco de dados. basicamente para auditorias.
     @param sql->    string (sql) de inserção
-    Data de criação: 15/11/2017
-    Última alteração: 15/11/2017
+    Data de criação:    15/11/2017
+    Última alteração:   15/11/2017
 **/
     $pdo = new pdo($_SESSION["load"]["banco_de_dados"]["driver"] . ":dbname=". $_SESSION["load"]["banco_de_dados"]["banco"] . ";charset=UTF8;host=" . $_SESSION["load"]["banco_de_dados"]["host"] . ";" , $_SESSION["load"]["banco_de_dados"]["usuario"], $_SESSION["load"]["banco_de_dados"]["senha"]);
     //$pdo->prepare($sql);

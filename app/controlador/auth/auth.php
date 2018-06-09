@@ -31,7 +31,7 @@ class auth {
 				header("Location: /");
 				echo "<script>document.reload();</script>";
 			} else {
-				$sql = "call sp_login_e(\"$this->user\", \"$this->password\")";
+				$sql = 'call sp_login_e("'.$this->user.'", "'.$this->password.'")';
 				$dados = retornadbinfo($sql);
 				$linha = $dados->fetch(PDO::FETCH_ASSOC);
 					if($linha["existe"] == "1"){

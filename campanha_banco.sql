@@ -194,7 +194,9 @@ cadfor int,
 tipoeleitor varchar(35) default "eleitor",
 lideranca boolean default 0,
 licenca int,
+hastag text,
 primary key(id),
+index(hastag),
 unique(email),
 foreign key(licenca) references licencas(id))engine=innodb charset=utf8;
 
@@ -289,3 +291,61 @@ alter table cidades change sigla siglaestado varchar(2);
 alter table usuarios add column tipousuario varchar(35) default "simpatizante",
 
 create table receita()engine=innodb charset=utf8;
+-- alterações finais para uso
+create table hastag(
+id int auto_increment,
+eleitor int,
+primary key(id))engine=innodb charset=utf8;
+
+create table sessao_eleitoral(
+id int auto_increment,
+local varchar(200),
+endereco varchar(200),
+totalsessao int,
+totalaptos int,
+primary key(id))engine=innodb charset=utf8;
+
+create table sessao_aptos(
+id int auto_increment,
+sessao int,
+aptos int,
+primary key(id))engine=innodb charset=utf8;
+
+create table BU(
+id int auto_increment,
+localvotacao int,
+sessao int,
+)engine=innodb charset=utf8;
+
+create table eleicoes2010(
+id bigint auto_increment,
+DATA_GERACAO date,
+HORA_GERACAO time,
+ANO_ELEICAO year,
+NUM_TURNO int(1),
+DESCRICAO_ELEICAO varchar(50),
+SIGLA_UF varchar(2),
+SIGLA_UE varchar(2),
+CODIGO_MUNICIPIO int,
+NOME_MUNICIPIO varchar(60),
+NUMERO_ZONA int,
+CODIGO_CARGO int,
+NUMERO_CAND int,
+SQ_CANDIDATO int,
+NOME_CANDIDATO varchar(100),
+NOME_URNA_CANDIDATO varchar(50),
+DESCRICAO_CARGO varchar(50),
+COD_SIT_CAND_SUPERIOR int,
+DESC_SIT_CAND_SUPERIOR varchar(35),
+CODIGO_SIT_CANDIDATO int,
+DESC_SIT_CANDIDATO varchar(35),
+CODIGO_SIT_CAND_TOT int,
+DESC_SIT_CAND_TOT varchar(35),
+NUMERO_PARTIDO int,
+SIGLA_PARTIDO varchar(35),
+NOME_PARTIDO varchar(100),
+SEQUENCIAL_LEGENDA int,
+NOME_COLIGACAO varchar(50),
+COMPOSICAO_LEGENDA varchar(200),
+TOTAL_VOTOS int,
+primary key (id))engine=innodb charset=utf8;
