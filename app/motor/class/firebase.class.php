@@ -30,5 +30,20 @@ class firebase {
 	</script>';
 	}
 }
+/*
 
+<script src="https://www.gstatic.com/firebasejs/5.1.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6w-Du6m9qyPO7XguhPFlsmJ5CskRhQPs",
+    authDomain: "deathpoverty.firebaseapp.com",
+    databaseURL: "https://deathpoverty.firebaseio.com",
+    projectId: "deathpoverty",
+    storageBucket: "deathpoverty.appspot.com",
+    messagingSenderId: "798420553143"
+  };
+  firebase.initializeApp(config);
+</script>
+*/
 ?>
